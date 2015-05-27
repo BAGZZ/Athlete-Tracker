@@ -31,6 +31,7 @@ public class Athlete {
 		this.studentID=studentID;
 		this.gender=gender;
 		this.YearAtUniversity=yearAtUniversity;
+		this.sports=Sports;
 		
 	}
 
