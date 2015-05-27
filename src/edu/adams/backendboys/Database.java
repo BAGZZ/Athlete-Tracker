@@ -8,4 +8,7 @@ public abstract class Database {
 	
 	public abstract Boolean update(String table,String[] data);
 	
+	public abstract Boolean delete(String table,String[] data);
+	
 }
+
