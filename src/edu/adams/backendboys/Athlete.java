@@ -9,7 +9,9 @@ public class Athlete {
 	private Date dateOfBirth;
 	private int studentID;
 	private boolean active;
-	private ArrayList<Injury> injuries;
+	private boolean activeInjury=false;
+	private ArrayList<Injury> injuryList;
+	private String injuries="";
 	private EmergencyContact contacts;
 	private InsuranceInformation insuranceInfo;
 	
@@ -31,10 +33,18 @@ public class Athlete {
 		this.studentID=studentID;
 		this.gender=gender;
 		this.YearAtUniversity=yearAtUniversity;
+		this.eligibility=eligibility;
 		this.sports=sports;
-		this.injuries=injuries;
+		this.active=active;
+		this.injuryList=injuries;
 		this.contacts=contacts;
 		this.insuranceInfo=insuranceInfo;
+		for(int count=0; count<this.injuryList.size()-1;count++){
+			this.injuries+=injuryList.get(count).toString()+", ";
+			this.activeInjury= this.activeInjury || injuryList.get(count).getActive();
+		}
+		this.injuries+=injuryList.get(injuryList.size()-1).toString();
+		this.activeInjury= this.activeInjury || injuryList.get(injuryList.size()-1).getActive();
 		
 	}
 
@@ -56,6 +66,10 @@ public class Athlete {
 
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public boolean getActiveInjury() {
+		return activeInjury;
 	}
 
 	public String getLastName() {
@@ -98,10 +112,14 @@ public class Athlete {
 		return active;
 	}
 
-	public ArrayList<Injury> getInjuries() {
+	public ArrayList<Injury> getInjuryList() {
+		return injuryList;
+	}
+	
+	public String getInjuries(){
 		return injuries;
 	}
-
+	
 	public EmergencyContact getContacts() {
 		return contacts;
 	}
@@ -112,3 +130,4 @@ public class Athlete {
 	
 	
 }
+
