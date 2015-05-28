@@ -19,8 +19,8 @@ public class Athlete {
 	}
 	
 	public Athlete(String firstName,char middleInital, String lastName, Date dateOfBirth,
-					String cellNumber,int studentID,char Gender,String yearAtUniversity,
-					String eligibility, boolean active, String Sports,ArrayList<Injury> injuries,
+					String cellNumber,int studentID,char gender,String yearAtUniversity,
+					String eligibility, boolean active, String sports,ArrayList<Injury> injuries,
 					EmergencyContact contacts, InsuranceInformation insuranceInfo){
 		
 		this.firstName=firstName;
@@ -31,7 +31,10 @@ public class Athlete {
 		this.studentID=studentID;
 		this.gender=gender;
 		this.YearAtUniversity=yearAtUniversity;
-		this.sports=Sports;
+		this.sports=sports;
+		this.injuries=injuries;
+		this.contacts=contacts;
+		this.insuranceInfo=insuranceInfo;
 		
 	}
 
