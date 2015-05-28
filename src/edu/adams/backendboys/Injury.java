@@ -30,13 +30,7 @@ public class Injury {
 	
 	@Override
 	public String toString() {
-		return "Injury [getInjuryID()=" + getInjuryID() + ", getInjuryType()="
-				+ getInjuryType() + ", getSeason()=" + getSeason()
-				+ ", getActive()=" + getActive() + ", getInjuryDate()="
-				+ getInjuryDate() + ", getSoapNotes()=" + getSoapNotes()
-				+ ", getPhysicianVisit()=" + getPhysicianVisit()
-				+ ", getInjuryProgressNotes()=" + getInjuryProgressNotes()
-				+ "]";
+		return getInjuryType();
 	}
 
 
