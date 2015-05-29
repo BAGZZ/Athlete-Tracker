@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 public class Athlete {
-	private String firstName,lastName,cellNumber,YearAtUniversity,eligibility,sports;
+	private String firstName,lastName,cellNumber,YearAtUniversity,eligibility,sports, allegeries, medications;
 	private char middileInital,gender;
 	private Date dateOfBirth;
 	private int studentID;
@@ -22,7 +22,7 @@ public class Athlete {
 	
 	public Athlete(String firstName,char middleInital, String lastName, Date dateOfBirth,
 					String cellNumber,int studentID,char gender,String yearAtUniversity,
-					String eligibility, boolean active, String sports,ArrayList<Injury> injuries,
+					String eligibility, boolean active, String allegeries,String medications, String sports,ArrayList<Injury> injuries,
 					EmergencyContact contacts, InsuranceInformation insuranceInfo){
 		
 		this.firstName=firstName;
@@ -36,6 +36,8 @@ public class Athlete {
 		this.eligibility=eligibility;
 		this.sports=sports;
 		this.active=active;
+		this.allegeries=allegeries;
+		this.medications=medications;
 		this.injuryList=injuries;
 		this.contacts=contacts;
 		this.insuranceInfo=insuranceInfo;
@@ -63,6 +65,14 @@ public class Athlete {
 	}
 
 
+	
+	public String getAllegeries() {
+		return allegeries;
+	}
+
+	public String getMedications() {
+		return medications;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -130,4 +140,3 @@ public class Athlete {
 	
 	
 }
-
