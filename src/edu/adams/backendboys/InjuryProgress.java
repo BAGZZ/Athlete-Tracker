@@ -2,7 +2,7 @@ package edu.adams.backendboys;
 
 import java.sql.Date;
 
-public class InjuryProgress {
+public class InjuryProgress implements Comparable<InjuryProgress> {
 	Date date;
 	String note;
 	
@@ -18,8 +18,7 @@ public class InjuryProgress {
 	
 	@Override
 	public String toString() {
-		return "InjuryProgress [getDate()=" + getDate() + ", getNote()="
-				+ getNote() + "]";
+		return getDate() + " "+ getNote();
 	}
 
 	public Date getDate() {
@@ -28,6 +27,11 @@ public class InjuryProgress {
 
 	public String getNote() {
 		return note;
+	}
+
+	@Override
+	public int compareTo(InjuryProgress note) {
+		return date.compareTo(note.date);
 	}
 	
 }
