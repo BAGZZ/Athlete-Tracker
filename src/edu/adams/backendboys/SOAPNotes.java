@@ -2,7 +2,7 @@ package edu.adams.backendboys;
 
 import java.sql.Date;
 
-public class SOAPNotes {
+public class SOAPNotes implements Comparable<SOAPNotes> {
 	 private String subjective,objective,analysis,plan;
 	 private Date date;
 	 
@@ -21,10 +21,7 @@ public class SOAPNotes {
 	 
 	@Override
 	public String toString() {
-		return "SOAPNotes [getSubjective()=" + getSubjective()
-				+ ", getObjective()=" + getObjective() + ", getAnalysis()="
-				+ getAnalysis() + ", getPlan()=" + getPlan() + ", getDate()="
-				+ getDate() + "]";
+		return date.toString()+"\nS:"+subjective+"\nO:"+objective+"\nA:"+analysis+"\nP:"+plan;
 	}
 
 	public String getSubjective() {
@@ -47,6 +44,9 @@ public class SOAPNotes {
 		return date;
 	}
 
-	 
-	 
+	@Override
+	public int compareTo(SOAPNotes note) {
+		return date.compareTo(note.date);
+	}
+
 }
