@@ -1,6 +1,7 @@
 package edu.adams.backendboys;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Athlete {
@@ -38,14 +39,15 @@ public class Athlete {
 		this.active=active;
 		this.allergies=allergies;
 		this.medications=medications;
-		this.injuryList=injuries;
+		this.injuryList=new ArrayList<Injury>(injuries);
+		Collections.sort(injuryList);
 		this.contacts=contacts;
 		this.insuranceInfo=insuranceInfo;
 		for(int count=0; count<this.injuryList.size()-1;count++){
-			this.injuries+=injuryList.get(count).toString()+", ";
+			this.injuries+=injuryList.get(count).getInjuryType().toString()+", ";
 			this.activeInjury= this.activeInjury || injuryList.get(count).getActive();
 		}
-		this.injuries+=injuryList.get(injuryList.size()-1).toString();
+		this.injuries+=injuryList.get(injuryList.size()-1).getInjuryType().toString();
 		this.activeInjury= this.activeInjury || injuryList.get(injuryList.size()-1).getActive();
 		
 	}
