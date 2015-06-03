@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Athlete {
 	private String firstName,lastName,cellNumber,YearAtUniversity,eligibility,sports, allergies, medications;
-	private char middileInital,gender;
+	private char middleInitial,gender;
 	private Date dateOfBirth;
 	private int studentID;
 	private boolean active;
@@ -20,13 +20,13 @@ public class Athlete {
 		
 	}
 	
-	public Athlete(String firstName,char middleInital, String lastName, Date dateOfBirth,
+	public Athlete(String firstName,char middleInitial, String lastName, Date dateOfBirth,
 					String cellNumber,int studentID,char gender,String yearAtUniversity,
 					String eligibility, boolean active, String allergies,String medications, String sports, ArrayList<Injury> injuries,
 					EmergencyContact contacts, InsuranceInformation insuranceInfo){
 		
 		this.firstName=firstName;
-		this.middileInital=middleInital;
+		this.middleInitial=middleInitial;
 		this.lastName=lastName;
 		this.dateOfBirth=dateOfBirth;
 		this.cellNumber=cellNumber;
@@ -56,7 +56,7 @@ public class Athlete {
 				+ getLastName() + ", getCellNumber()=" + getCellNumber()
 				+ ", getYearAtUniversity()=" + getYearAtUniversity()
 				+ ", getEligibility()=" + getEligibility() + ", getSports()="
-				+ getSports() + ", getMiddileInital()=" + getMiddileInital()
+				+ getSports() + ", getMiddleInitial()=" + getMiddleInitial()
 				+ ", getGender()=" + getGender() + ", getDateOfBirth()="
 				+ getDateOfBirth() + ", getStudentID()=" + getStudentID()
 				+ ", isActive()=" + isActive() + ", getInjuries()="
@@ -102,8 +102,8 @@ public class Athlete {
 		return sports;
 	}
 
-	public char getMiddileInital() {
-		return middileInital;
+	public char getMiddleInitial() {
+		return middleInitial;
 	}
 
 	public char getGender() {
