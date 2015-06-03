@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class InsuranceInformation {
 	private String studentSSN, companyName, insurancePhone, policyID, groupNummber, address, preCertPhone, policyHolder, policyHolderPhone, policyHolderAddress, primaryPhysician, physicianPhone;
-	private Date policyEffective, policyExperation;
+	private Date policyEffective, policyExpiration;
 	private Boolean coverAthleticInjury, referral;
 	private int limit, deductible, coPay;
 	
@@ -12,7 +12,7 @@ public class InsuranceInformation {
 	private InsuranceInformation(){
 		
 	}
-	public InsuranceInformation(String studentSSN, String companyName, String insurancePhone, String policyID, String groupNumber, String address, Date policyEffective, Date policyExperation, Boolean coverAthleticInjury, String preCertPhone, String policyHolder, String policyHolderPhone, String policyHolderAddress, int limit, int deductible, int coPay, Boolean referral, String primaryPhysician, String physicianPhone){
+	public InsuranceInformation(String studentSSN, String companyName, String insurancePhone, String policyID, String groupNumber, String address, Date policyEffective, Date policyExpiration, Boolean coverAthleticInjury, String preCertPhone, String policyHolder, String policyHolderPhone, String policyHolderAddress, int limit, int deductible, int coPay, Boolean referral, String primaryPhysician, String physicianPhone){
 		this.studentSSN=studentSSN;
 		this.companyName=companyName;
 		this.insurancePhone=insurancePhone;
@@ -20,7 +20,7 @@ public class InsuranceInformation {
 		this.groupNummber=groupNumber;
 		this.address=address;
 		this.policyEffective=policyEffective;
-		this.policyExperation=policyExperation;
+		this.policyExpiration=policyExpiration;
 		this.coverAthleticInjury=coverAthleticInjury;
 		this.preCertPhone=preCertPhone;
 		this.policyHolder=policyHolder;
@@ -49,7 +49,7 @@ public class InsuranceInformation {
 				+ ", getPrimaryPhysician()=" + getPrimaryPhysician()
 				+ ", getPhysicianPhone()=" + getPhysicianPhone()
 				+ ", getPolicyEffective()=" + getPolicyEffective()
-				+ ", getPolicyExperation()=" + getPolicyExperation()
+				+ ", getPolicyExpiration()=" + getPolicyExpiration()
 				+ ", getCoverAthleticInjury()=" + getCoverAthleticInjury()
 				+ ", getReferral()=" + getReferral() + ", getLimit()="
 				+ getLimit() + ", getDeductible()=" + getDeductible()
@@ -94,8 +94,8 @@ public class InsuranceInformation {
 	public Date getPolicyEffective() {
 		return policyEffective;
 	}
-	public Date getPolicyExperation() {
-		return policyExperation;
+	public Date getPolicyExpiration() {
+		return policyExpiration;
 	}
 	public Boolean getCoverAthleticInjury() {
 		return coverAthleticInjury;
