@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 /*
- * add editInsurance
  * add editEmergencyContact
  * add add/remove Coach
  * add GenerateReport()
+ * add sanitize()
  */
 public class AthleteTrackerDatabase {
 	private Database database;
@@ -81,8 +81,12 @@ public class AthleteTrackerDatabase {
 	}
 	
 	public int getSportID(String sport){
-		String[] data={"SPORTNAME="+sport};
-		return Integer.parseInt(database.select("SPORTS", data).get(0).get(0));
+		String[] data={"SPORTNAME='"+sport+"'"};
+		int id=-1;
+		for(ArrayList<String> sports : database.select("SPORTS", data)){
+			id=Integer.parseInt(sports.get(0));
+		}
+		return id;
 	}
 	
 	public ArrayList<String> getInjuryTypes(){
@@ -128,10 +132,9 @@ public class AthleteTrackerDatabase {
 	
 	public int getBodyPartID(String bodyPart){
 		int id=-1;
-		String[] data = {"BODYPART="+bodyPart};
-		ArrayList<String> temp = database.select("BODYPART", data).get(0);
-		if(!temp.isEmpty()){
-			id=Integer.parseInt(temp.get(0));
+		String[] data = {"BODYPART='"+bodyPart+"'"};
+		for(ArrayList<String> part : database.select("BODYPART", data)){
+			id=Integer.parseInt(part.get(0));
 		}
 		return id;
 	}
@@ -310,7 +313,7 @@ public class AthleteTrackerDatabase {
 	}
 		
 	public boolean addBodyPart(String bodyPart){
-		String table = "BODYPARTS";
+		String table = "BODYPART";
 		String[] data = {"(BODYPART)",""};
 		data[1]=bodyPart;
 		return database.insert(table, data);
@@ -446,10 +449,10 @@ public class AthleteTrackerDatabase {
 				activeAthlete="0";
 			}
 			String[] athleteData= {"(FIRSTNAME, MIDDLEINITIAL, LASTNAME, DATEOFBIRTH, CELLNUMBER, STUDENTID,"
-									+ " GENDER, YEARATUNIVERSITY, ELIGIBILITY, ACTIVE, ALLERGIES, MEDICATIONS)",player.getFirstName()+",",
-									player.getMiddleInitial()+",",player.getLastName()+",","'"+player.getDateOfBirth().toString()+"',",
-									player.getCellNumber()+",",player.getStudentID()+",",player.getGender()+",",player.getYearAtUniversity()+",",
-									player.getEligibility()+",",activeAthlete+",",player.getAllergies()+",",player.getMedications()};
+									+ " GENDER, YEARATUNIVERSITY, ELIGIBILITY, ACTIVE, ALLERGIES, MEDICATIONS)","'"+player.getFirstName()+"',",
+									"'"+player.getMiddleInitial()+"',","'"+player.getLastName()+"',","'"+player.getDateOfBirth().toString()+"',",
+									"'"+player.getCellNumber()+"',",player.getStudentID()+",","'"+player.getGender()+"',","'"+player.getYearAtUniversity()+"',",
+									"'"+player.getEligibility()+"',",activeAthlete+",","'"+player.getAllergies()+"',",player.getMedications()+"'"};
 			
 			
 			output=output && database.insert("ATHLETE", athleteData);
@@ -458,14 +461,18 @@ public class AthleteTrackerDatabase {
 		//add to AthleteSports Table
 		if(output){
 			String[] sportsData = {"(STUDENTID,SPORTID)",""+player.getStudentID()+",",""};
+			int sportID=-1;
 			for(String sport : player.getSports().split(",")){
-				sportsData[2]="SPORTID="+getSportID(sport);
-				output= output && database.insert("SPORTATHLETE", sportsData);
+				sportID=getSportID(sport);
+				if(sportID!=-1){
+					sportsData[2]="SPORTID="+sportID;
+					output= output && database.insert("ATHLETESPORTS", sportsData);
+				}
 			}
 		}
 		//add to emergency contact table
 		if(output){
-			String[] contactData={"(STUDENTID,CONTACTNAME1, CONTACTPHONE1, CONTACTNAME2, CONTACT2)",player.getStudentID()+",",player.getContacts().getContact1Name()+",",player.getContacts().getContact1Phone()+",",player.getContacts().getContact2Name()+",",player.getContacts().getContact2Phone()};
+			String[] contactData={"(STUDENTID,CONTACTNAME1, CONTACTPHONE1, CONTACTNAME2, CONTACT2)",player.getStudentID()+",","'"+player.getContacts().getContact1Name()+"',","'"+player.getContacts().getContact1Phone()+"',","'"+player.getContacts().getContact2Name()+"',","'"+player.getContacts().getContact2Phone()+"'"};
 			output= output && database.insert("EMERGENCYCONTACT", contactData);
 		}
 		
@@ -478,13 +485,24 @@ public class AthleteTrackerDatabase {
 				encryptedSSN="                ";
 				e.printStackTrace();
 			}
-			String[] insuranceData={"(STUDENTID, STUDENTSSN, COMPANYNAME, INSURANCEPHONE, POLICYID, GROUPNUMBER, ADRESS, POLICYEFFECTIVE,"
+			String referralString = "1";
+			if(!player.getInsuranceInfo().getReferral()){
+				referralString="0";
+			}
+			String coverAthleteString="1";
+			if(!player.getInsuranceInfo().getCoverAthleticInjury()){
+				coverAthleteString="0";
+			}
+			String[] insuranceData={"(STUDENTID, STUDENTSSN, COMPANYNAME, INSURANCEPHONE, POLICYID, GROUPNUMBER, ADDRESS, POLICYEFFECTIVE,"
 					+ "POLICYEXPIRATION, COVERATHLETICINJURY, PRECERTPHONE, POLICYHOLDER, POLICYHOLDERPHONE, POLICYHOLDERADDRESS, POLICYLIMIT,"
-					+ "DEDUCTIBLE, COPAY, REFERRAL, PRIMARYPHYSICIAN, PHYSICIANPHONE )",player.getStudentID()+",",encryptedSSN+",",player.getInsuranceInfo().getCompanyName()+",",player.getInsuranceInfo().getInsurancePhone()+",",player.getInsuranceInfo().getPolicyID()+",",player.getInsuranceInfo().getGroupNummber()+",",player.getInsuranceInfo().getAddress()+",",player.getInsuranceInfo().getPolicyHolder()+",",player.getInsuranceInfo().getPolicyHolderPhone()+",",player.getInsuranceInfo().getPolicyHolderAddress()+",",player.getInsuranceInfo().getLimit()+",",player.getInsuranceInfo().getDeductible()+",",player.getInsuranceInfo().getCoPay()+",",player.getInsuranceInfo().getReferral()+",",player.getInsuranceInfo().getPrimaryPhysician()+",", player.getInsuranceInfo().getPhysicianPhone()};
+					+ "DEDUCTIBLE, COPAY, REFERRAL, PRIMARYPHYSICIAN, PHYSICIANPHONE )",player.getStudentID()+",","'"+encryptedSSN+"',","'"+player.getInsuranceInfo().getCompanyName()+"',","'"+player.getInsuranceInfo().getInsurancePhone()+"',",
+					"'"+player.getInsuranceInfo().getPolicyID()+"',","'"+player.getInsuranceInfo().getGroupNummber()+"',","'"+player.getInsuranceInfo().getAddress()+"',","'"+player.getInsuranceInfo().getPolicyEffective()+"',",
+					"'"+player.getInsuranceInfo().getPolicyExpiration()+"',",coverAthleteString+",","'"+player.getInsuranceInfo().getPreCertPhone()+"',","'"+player.getInsuranceInfo().getPolicyHolder()+"',",
+					"'"+player.getInsuranceInfo().getPolicyHolderPhone()+"',","'"+player.getInsuranceInfo().getPolicyHolderAddress()+"',",player.getInsuranceInfo().getLimit()+",",
+					player.getInsuranceInfo().getDeductible()+",",player.getInsuranceInfo().getCoPay()+",",referralString+",","'"+player.getInsuranceInfo().getPrimaryPhysician()+"',",
+					"'"+player.getInsuranceInfo().getPhysicianPhone()+"'"};
 			output = output && database.insert("INSURANCEINFORMATION", insuranceData);
 		}
-		
-		
 		return output;
 	}
 
@@ -507,8 +525,8 @@ public class AthleteTrackerDatabase {
 	}
 
 	public boolean addInjuryType(String bodyPart, String injuryType){
-		String table="INJURYTYPES";
-		String[] data= {"(BODYPARTID,INJURYTYPE)",""+getBodyPartID(bodyPart)+",",injuryType};
+		String table="INJURYTYPE";
+		String[] data= {"(BODYPARTID,INJURYTYPE)",""+getBodyPartID(bodyPart)+",","'"+injuryType+"'"};
 		return database.insert(table, data);
 	}
 
@@ -580,30 +598,33 @@ public class AthleteTrackerDatabase {
 		return database.update(table, updatedData, searchData);
 	}
 	
-	public boolean editInsurance(Athlete currentAthlete, InsuranceInformation newInsuranceInfo){
+	public boolean editInsurance(Athlete player, InsuranceInformation newInsuranceInfo){
 		String table = "INSURANCEINFORMATION";
-		String[] searchData = {"STUDENTID="+currentAthlete.getStudentID()};
-		String[] updatedData = new String[20];
-		updatedData[0]= "";
-		updatedData[1]= "";
-		updatedData[2]= "";
-		updatedData[3]= "";
-		updatedData[4]= "";
-		updatedData[5]= "";
-		updatedData[6]= "";
-		updatedData[7]= "";
-		updatedData[8]= "";
-		updatedData[9]= "";
-		updatedData[10]= "";
-		updatedData[11]= "";
-		updatedData[12]= "";
-		updatedData[13]= "";
-		updatedData[14]= "";
-		updatedData[15]= "";
-		updatedData[16]= "";
-		updatedData[17]= "";
-		updatedData[18]= "";
-		updatedData[19]= "";
-		return database.update(table, updatedData, searchData);
+		String[] searchData = {"STUDENTID="+player.getStudentID()};
+		String encryptedSSN;
+		try {
+			encryptedSSN = new String ( Encryption.encrypt(newInsuranceInfo.getStudentSSN()),"UTF-8");
+		} catch (Exception e) {
+			encryptedSSN="                ";
+			e.printStackTrace();
+		}
+		String referralString ="1";
+		if(!newInsuranceInfo.getReferral()){
+			referralString="0";
+		}
+		String coverAthleteString ="1";
+		if(!newInsuranceInfo.getCoverAthleticInjury()){
+			coverAthleteString="0";
+		}
+		// ", , , , )",
+		String[] insuranceData={"STUDENTID="+player.getStudentID()+",","STUDENTSSN='"+encryptedSSN+"',","COMPANYNAME='"+newInsuranceInfo.getCompanyName()+"',","INSURANCEPHONE='"+newInsuranceInfo.getInsurancePhone()+"',",
+				"POLICYID='"+newInsuranceInfo.getPolicyID()+"',","GROUPNUMBER='"+newInsuranceInfo.getGroupNummber()+"',","ADDRESS='"+newInsuranceInfo.getAddress()+"',","POLICYEFFECTIVE='"+newInsuranceInfo.getPolicyEffective()+"',",
+				"POLICYEXPIRATION='"+newInsuranceInfo.getPolicyExpiration()+"',","COVERATHLETICINJURY="+coverAthleteString+",","PRECERTPHONE='"+newInsuranceInfo.getPreCertPhone()+"',","POLICYHOLDER='"+newInsuranceInfo.getPolicyHolder()+"',",
+				"POLICYHOLDERPHONE='"+newInsuranceInfo.getPolicyHolderPhone()+"',","POLICYHOLDERADDRESS='"+newInsuranceInfo.getPolicyHolderAddress()+"',","POLICYLIMIT="+newInsuranceInfo.getLimit()+",",
+				"DEDUCTIBLE="+newInsuranceInfo.getDeductible()+",","COPAY="+newInsuranceInfo.getCoPay()+",","REFERRAL="+referralString+",","PRIMARYPHYSICIAN='"+newInsuranceInfo.getPrimaryPhysician()+"',",
+				"PHYSICIANPHONE='"+newInsuranceInfo.getPhysicianPhone()+"'"};
+
+		return database.update(table, insuranceData, searchData);
+
 	}
 }
