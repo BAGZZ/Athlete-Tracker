@@ -1,4 +1,7 @@
 package edu.adams.backendboys;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -25,6 +28,16 @@ public class Encryption {
 		    cipher.init(Cipher.DECRYPT_MODE, key,new IvParameterSpec(IV.getBytes("UTF-8")));
 		    return new String(cipher.doFinal(cipherText),"UTF-8");
 	  }
+	  
+	  public static String hash(String input) throws NoSuchAlgorithmException{
+	        MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+	        byte[] result = mDigest.digest(input.getBytes());
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < result.length; i++) {
+	            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	        return sb.toString();
+	  }
 	
 	public static void main(String[] args){
 		String number ="857498578";
@@ -36,4 +49,6 @@ public class Encryption {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }
