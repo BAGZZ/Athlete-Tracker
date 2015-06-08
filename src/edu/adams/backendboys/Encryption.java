@@ -8,25 +8,29 @@ import javax.crypto.spec.SecretKeySpec;
 public class Encryption {
 	private static final String IV="buEEskxDqLMdhbus";
 	private static final String encryptionKey= "ASUATHLETETRACKR";
-	public static String tacOn ="\0\0\0\0\0\0\0";
+	public static String tacOn ="0000000";
 	
 	private Encryption(){
 		
 	}
 	
-	  public static byte[] encrypt(String plainText) throws Exception {
-		  	String data= plainText+Encryption.tacOn;
+	  public static String encrypt(String plainText) throws Exception {
+		   	/*String data= Encryption.tacOn+plainText;
 		    Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
 		    SecretKeySpec key = new SecretKeySpec(Encryption.encryptionKey.getBytes("UTF-8"), "AES");
 		    cipher.init(Cipher.ENCRYPT_MODE, key,new IvParameterSpec(IV.getBytes("UTF-8")));
-		    return cipher.doFinal(data.getBytes("UTF-8"));
+		    return new String( cipher.doFinal(data.getBytes("UTF-8")), "UTF-8"); */
+		  return plainText;
+		  	
 	  }
 		 
-	  public static String decrypt(byte[] cipherText) throws Exception{
+	  public static String decrypt(String encryptedText) throws Exception{
+		  	/*byte[] cipherText = encryptedText.getBytes("UTF-8");
 		    Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
 		    SecretKeySpec key = new SecretKeySpec(Encryption.encryptionKey.getBytes("UTF-8"), "AES");
 		    cipher.init(Cipher.DECRYPT_MODE, key,new IvParameterSpec(IV.getBytes("UTF-8")));
-		    return new String(cipher.doFinal(cipherText),"UTF-8");
+		    return new String(cipher.doFinal(cipherText),"UTF-8");*/
+		  return encryptedText;
 	  }
 	  
 	  public static String hash(String input) throws NoSuchAlgorithmException{
@@ -40,10 +44,10 @@ public class Encryption {
 	  }
 	
 	public static void main(String[] args){
-		String number ="857498578";
+		String number ="000000000";
 		try {
 			 
-			System.out.println(number+"\n"+new String(Encryption.encrypt(number),"UTF-8")+"\n"+Encryption.decrypt((Encryption.encrypt(number))));
+			System.out.println(number+"\n"+new String(Encryption.encrypt(number))+"\n"/*+Encryption.decrypt((Encryption.encrypt(number)))*/);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
