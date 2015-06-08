@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Injury implements Comparable<Injury> {
+public class Injury {
 	private int injuryID;
 	private String injuryType, season;
 	private Boolean active;
@@ -23,22 +23,6 @@ public class Injury implements Comparable<Injury> {
 	
 	public Injury(int injuryID, String injuryType, Date injuryDate, Boolean active, String season, ArrayList<SOAPNotes> soapNotes, ArrayList<PhysicianVisit> physicianVisits, ArrayList<InjuryProgress> injuryProgressNotes){
 		this.injuryID=injuryID;
-		this.injuryType=injuryType;
-		this.injuryDate=injuryDate;
-		this.active=active;
-		this.season=season;
-		this.soapNotes=new ArrayList<SOAPNotes>(soapNotes);
-		this.physicianVisits=new ArrayList<PhysicianVisit>(physicianVisits);
-		this.injuryProgressNotes=new ArrayList<InjuryProgress>(injuryProgressNotes);
-		Collections.sort(this.injuryProgressNotes);
-		latestProgressNote=this.injuryProgressNotes.get(0).toString();
-		Collections.sort(this.soapNotes);
-		latestProgressNote=this.soapNotes.get(0).toString();
-		Collections.sort(this.physicianVisits);
-		latestProgressNote=this.physicianVisits.get(0).toString();
-	}
-	
-	public Injury(String injuryType, Date injuryDate, Boolean active, String season, ArrayList<SOAPNotes> soapNotes, ArrayList<PhysicianVisit> physicianVisits, ArrayList<InjuryProgress> injuryProgressNotes){
 		this.injuryType=injuryType;
 		this.injuryDate=injuryDate;
 		this.active=active;
@@ -101,11 +85,6 @@ public class Injury implements Comparable<Injury> {
 	}
 	public ArrayList<InjuryProgress> getInjuryProgressNotes() {
 		return injuryProgressNotes;
-	}
-
-	@Override
-	public int compareTo(Injury injury) {
-		return injuryDate.compareTo(injury.injuryDate);
 	}
 	
 	
