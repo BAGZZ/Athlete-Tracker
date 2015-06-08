@@ -97,7 +97,7 @@ public class AthleteTrackerDatabase {
 		ArrayList<String> injuryTypes= new ArrayList<String>();
 		injuryTypes.add("Any");
 		String[] data = {"INJURYID IS NOT NULL","INJURYTYPE IS NOT NULL"};
-		ArrayList<ArrayList<String>> temp = database.select("SPORTS", data);
+		ArrayList<ArrayList<String>> temp = database.select("INJURYTYPE", data);
 		for(ArrayList<String> pairs : temp){
 			injuryTypes.add(pairs.get(1));
 		}
@@ -107,7 +107,7 @@ public class AthleteTrackerDatabase {
 	private int getInjuryTypeID(String injuryType){
 		String injuryID= "";
 		String[] data = {"INJURYID IS NOT NULL","INJURYTYPE="+injuryType};
-		ArrayList<ArrayList<String>> temp = database.select("SPORTS", data);
+		ArrayList<ArrayList<String>> temp = database.select("INJURYTYPE", data);
 		for(ArrayList<String> pairs : temp){
 			injuryID=(pairs.get(1));
 		}
@@ -156,12 +156,13 @@ public class AthleteTrackerDatabase {
 	private Athlete getAthleteByID(Integer id){
 		String[] idData = {"STUDENTID="+id};
 		ArrayList<String> temp=database.select("ATHLETE", idData).get(0);
-		String firstName = temp.get(0);
-		char middleInitial = temp.get(1).charAt(0);
-		String lastName = temp.get(2);
-		java.sql.Date dateOfBirth = java.sql.Date.valueOf(temp.get(3));
-		String cellNumber = temp.get(4);
-		int studentID = Integer.parseInt(temp.get(5));
+		int studentID = Integer.parseInt(temp.get(0));
+		String firstName = temp.get(1);
+		char middleInitial = temp.get(2).charAt(0);
+		String lastName = temp.get(3);
+		java.sql.Date dateOfBirth = java.sql.Date.valueOf(temp.get(4));
+		String cellNumber = temp.get(5);
+		
 		char gender = temp.get(6).charAt(0);
 		String yearAtUniversity = temp.get(7);
 		String eligibility = temp.get(8);
@@ -261,16 +262,22 @@ public class AthleteTrackerDatabase {
 		//database search to get contacts from db
 		tempStorage=new ArrayList<ArrayList<String>>();
 		tempStorage= database.select("INJURIES", idData);
-		String Contact1Name=tempStorage.get(0).get(1);
-		String Contact1Phone=tempStorage.get(0).get(2);
-		String Contact2Name=tempStorage.get(0).get(3);
-		String Contact2Phone=tempStorage.get(0).get(4);
+		String Contact1Name="";
+		String Contact1Phone="";
+		String Contact2Name="";
+		String Contact2Phone="";
+		for(ArrayList<String> contact: tempStorage){
+			Contact1Name=contact.get(1);
+			Contact1Phone=contact.get(2);
+			Contact2Name=contact.get(3);
+			Contact2Phone=contact.get(4);
+		}
 	
 		EmergencyContact contacts= new EmergencyContact(Contact1Name, Contact1Phone, Contact2Name, Contact2Phone);
 		
 		//database search to get insurance Info
 		tempStorage=new ArrayList<ArrayList<String>>();
-		tempStorage= database.select("INSURANCEINFO", idData);
+		tempStorage= database.select("INSURANCEINFORMATION", idData);
 		String studentSSN="";
 		try {
 			studentSSN = Encryption.decrypt(tempStorage.get(0).get(1).getBytes("UTF-8"));
