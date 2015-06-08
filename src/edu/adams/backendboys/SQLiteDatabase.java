@@ -65,12 +65,24 @@ public class SQLiteDatabase extends Database {
 			try {
 				statement=connectionToDatabase.createStatement();
 				statement.setQueryTimeout(5);
-				sql="SELECT * FROM "+table+" WHERE ";
-				for(String pair : data){
-					sql+=pair;
+				sql="SELECT * FROM "+table;
+				boolean isSomething = false;
+				for(String word : data){
+					if(!word.equalsIgnoreCase("")){
+						isSomething = true;
+					}
 				}
+				if(isSomething){
+					sql+=" WHERE ";
+					for(String pair : data){
+						sql+=pair;
+					}
+				}else{
+					
+				}
+
 //*/
-				results = statement.executeQuery(sql);	
+				results = statement.executeQuery(sql+";");	
 				int numberOfColumns = results.getMetaData().getColumnCount();
 				try {
 					while (results.next()){
