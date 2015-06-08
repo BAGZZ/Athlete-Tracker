@@ -96,20 +96,20 @@ public class AthleteTrackerDatabase {
 	public ArrayList<String> getInjuryTypes(){
 		ArrayList<String> injuryTypes= new ArrayList<String>();
 		injuryTypes.add("Any");
-		String[] data = {"INJURYID IS NOT NULL","INJURYTYPE IS NOT NULL"};
+		String[] data = {"INJURYTYPE IS NOT NULL"};
 		ArrayList<ArrayList<String>> temp = database.select("INJURYTYPE", data);
 		for(ArrayList<String> pairs : temp){
-			injuryTypes.add(pairs.get(1));
+			injuryTypes.add(pairs.get(2));
 		}
 		return injuryTypes;
 	}
 	
 	private int getInjuryTypeID(String injuryType){
 		String injuryID= "";
-		String[] data = {"INJURYID IS NOT NULL","INJURYTYPE="+injuryType};
+		String[] data = {"INJURYTYPE="+injuryType};
 		ArrayList<ArrayList<String>> temp = database.select("INJURYTYPE", data);
 		for(ArrayList<String> pairs : temp){
-			injuryID=(pairs.get(1));
+			injuryID=(pairs.get(0));
 		}
 		return Integer.parseInt(injuryID);
 	}
@@ -124,12 +124,12 @@ public class AthleteTrackerDatabase {
 		}
 		String[] data = {""};
 		if(partID==-1){
-			data[0]="BODYPART IS NOT NULL";
+			data[0]="BODYPARTID IS NOT NULL";
 		}else{
-			data[0]="BODYPART="+partID;
+			data[0]="BODYPARTID="+partID;
 		}
-		for(ArrayList<String> injuryType : database.select("BODYPART", data)){
-			injuryTypes.add(injuryType.get(2));
+		for(ArrayList<String> injuryType : database.select("INJURYTYPE", data)){
+			injuryTypes.add(injuryType.get(3));
 		}
 		return new ArrayList<String>(injuryTypes);
 	}
@@ -280,10 +280,12 @@ public class AthleteTrackerDatabase {
 		tempStorage= database.select("INSURANCEINFORMATION", idData);
 		String studentSSN="";
 		try {
+			System.out.println(tempStorage.get(0).get(1)+"\t"+tempStorage.get(0).get(1).length());
 			studentSSN = Encryption.decrypt(tempStorage.get(0).get(1).getBytes("UTF-8"));
 		} catch (Exception e) {
 			studentSSN="Failed to get SSN";
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		String companyName=tempStorage.get(0).get(2);
 		String insurancePhone=tempStorage.get(0).get(3);
