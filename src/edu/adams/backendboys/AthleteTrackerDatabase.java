@@ -1,18 +1,22 @@
 package edu.adams.backendboys;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 /*
+ * add character quotes around every string
  * add editEmergencyContact
  * add add/remove Coach
  * add GenerateReport()
- * add sanitize()
  */
 public class AthleteTrackerDatabase {
 	private Database database;
+	private ArrayList<Athlete> lastSearch = new ArrayList<Athlete>();
 	
 	public AthleteTrackerDatabase(){
 		database=new SQLiteDatabase();
@@ -29,9 +33,9 @@ public class AthleteTrackerDatabase {
 		//ATHLETE SPORTS TABLE
 		String sportID="";
 		if(sport.equalsIgnoreCase("") || sport.equalsIgnoreCase("Any")){
-			sportID=" IS NOT NULL,";
+			sportID=" IS NOT NULL";
 		}else{
-			sportID=""+getSportID(sport)+",";
+			sportID="="+getSportID(sport)+"";
 		}
 		 studentIDs.retainAll(getAthleteIDsFromSportID(sportID));
 
@@ -44,8 +48,8 @@ public class AthleteTrackerDatabase {
 		for(Integer studentID : studentIDs){
 			athletes.add(getAthleteByID(studentID));
 		}
-		
-		return athletes;
+		lastSearch= new ArrayList<Athlete>(athletes);
+		return new ArrayList<Athlete>(athletes);
 	}
 	
 	private ArrayList<Integer> getStudentIDsbyInjury(String injuryTypeID,
@@ -62,7 +66,7 @@ public class AthleteTrackerDatabase {
 	private ArrayList<Integer> getAthleteIDsFromSportID(String sportID) {
 		ArrayList<Integer> athleteIDs = new ArrayList<Integer>();
 		String table="ATHLETESPORTS";
-		String[] data= {"SPORTID="+sportID};
+		String[] data= {"SPORTID"+sportID};
 		for(ArrayList<String> athleteSportRelation : database.select(table, data)){
 			athleteIDs.add(Integer.parseInt(athleteSportRelation.get(0)));
 		}
@@ -72,7 +76,7 @@ public class AthleteTrackerDatabase {
 	public ArrayList<String> getSports(){
 		ArrayList<String> sports= new ArrayList<String>();
 		sports.add("Any");
-		String[] data = {"SPORTID IS NOT NULL", "SPORTNAME IS NOT NULL"};
+		String[] data = {"SPORTID IS NOT NULL"};
 		ArrayList<ArrayList<String>> temp = database.select("SPORTS", data);
 		for(ArrayList<String> pairs : temp){
 			sports.add(pairs.get(1));
@@ -142,7 +146,7 @@ public class AthleteTrackerDatabase {
 	public ArrayList<String> getAllBodyParts(){
 		ArrayList<String> bodyParts = new ArrayList<String>();
 		bodyParts.add("Any");
-		String[] data ={"BODYPARTID IS NOT NULL", "BODYPART IS NOT NULL"};
+		String[] data ={"BODYPARTID IS NOT NULL"};
 		for(ArrayList<String> parts: database.select("BODYPART", data)){
 			bodyParts.add(parts.get(1));
 		}
@@ -372,9 +376,29 @@ public class AthleteTrackerDatabase {
 			gender="='"+gender.toUpperCase().charAt(0)+"'";
 		}
 		String[] data ={"FIRSTNAME"+firstName+", " , "MIDDLEINITIAL"+middleInitial +", " , "LASTNAME"+lastName+", " , "STUDENTID"+studentID+", " , "GENDER"+gender};
+		
+		if(firstName.equalsIgnoreCase("IS NOT NULL")){
+			data[0]="";
+		}
+		
+		if(middleInitial.equalsIgnoreCase("IS NOT NULL")){
+			data[1]="";
+		}
+		
+		if(lastName.equalsIgnoreCase("IS NOT NULL")){
+				data[2]="";
+		}
+		
+		if(studentID.equalsIgnoreCase("IS NOT NULL")){
+			data[3]="";
+		}
+		
+		if(gender.equalsIgnoreCase("IS NOT NULL")){
+			data[4]="";
+		}
 		ArrayList<ArrayList<String>> temp = database.select("ATHLETE", data);
 		for(ArrayList<String> athlete : temp){
-			ids.add(Integer.parseInt(athlete.get(5)));
+			ids.add(Integer.parseInt(athlete.get(0)));
 		}
 		return new ArrayList<Integer>(ids);
 	}
@@ -452,7 +476,7 @@ public class AthleteTrackerDatabase {
 									+ " GENDER, YEARATUNIVERSITY, ELIGIBILITY, ACTIVE, ALLERGIES, MEDICATIONS)","'"+player.getFirstName()+"',",
 									"'"+player.getMiddleInitial()+"',","'"+player.getLastName()+"',","'"+player.getDateOfBirth().toString()+"',",
 									"'"+player.getCellNumber()+"',",player.getStudentID()+",","'"+player.getGender()+"',","'"+player.getYearAtUniversity()+"',",
-									"'"+player.getEligibility()+"',",activeAthlete+",","'"+player.getAllergies()+"',",player.getMedications()+"'"};
+									"'"+player.getEligibility()+"',",activeAthlete+",","'"+player.getAllergies()+"',","'"+player.getMedications()+"'"};
 			
 			
 			output=output && database.insert("ATHLETE", athleteData);
@@ -465,14 +489,14 @@ public class AthleteTrackerDatabase {
 			for(String sport : player.getSports().split(",")){
 				sportID=getSportID(sport);
 				if(sportID!=-1){
-					sportsData[2]="SPORTID="+sportID;
+					sportsData[2]=""+sportID;
 					output= output && database.insert("ATHLETESPORTS", sportsData);
 				}
 			}
 		}
 		//add to emergency contact table
 		if(output){
-			String[] contactData={"(STUDENTID,CONTACTNAME1, CONTACTPHONE1, CONTACTNAME2, CONTACT2)",player.getStudentID()+",","'"+player.getContacts().getContact1Name()+"',","'"+player.getContacts().getContact1Phone()+"',","'"+player.getContacts().getContact2Name()+"',","'"+player.getContacts().getContact2Phone()+"'"};
+			String[] contactData={"(STUDENTID,CONTACTNAME1, CONTACTPHONE1, CONTACTNAME2, CONTACTPHONE2)",player.getStudentID()+",","'"+player.getContacts().getContact1Name()+"',","'"+player.getContacts().getContact1Phone()+"',","'"+player.getContacts().getContact2Name()+"',","'"+player.getContacts().getContact2Phone()+"'"};
 			output= output && database.insert("EMERGENCYCONTACT", contactData);
 		}
 		
@@ -616,7 +640,6 @@ public class AthleteTrackerDatabase {
 		if(!newInsuranceInfo.getCoverAthleticInjury()){
 			coverAthleteString="0";
 		}
-		// ", , , , )",
 		String[] insuranceData={"STUDENTID="+player.getStudentID()+",","STUDENTSSN='"+encryptedSSN+"',","COMPANYNAME='"+newInsuranceInfo.getCompanyName()+"',","INSURANCEPHONE='"+newInsuranceInfo.getInsurancePhone()+"',",
 				"POLICYID='"+newInsuranceInfo.getPolicyID()+"',","GROUPNUMBER='"+newInsuranceInfo.getGroupNummber()+"',","ADDRESS='"+newInsuranceInfo.getAddress()+"',","POLICYEFFECTIVE='"+newInsuranceInfo.getPolicyEffective()+"',",
 				"POLICYEXPIRATION='"+newInsuranceInfo.getPolicyExpiration()+"',","COVERATHLETICINJURY="+coverAthleteString+",","PRECERTPHONE='"+newInsuranceInfo.getPreCertPhone()+"',","POLICYHOLDER='"+newInsuranceInfo.getPolicyHolder()+"',",
@@ -626,5 +649,38 @@ public class AthleteTrackerDatabase {
 
 		return database.update(table, insuranceData, searchData);
 
+	}
+	
+	public String sanitize(String input){
+		String accepted="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,/";
+		String output="";
+		for(int count=0;count<input.length();count++){
+			if(accepted.contains(""+input.charAt(count))){
+				output+=""+input.charAt(count);
+			}
+			
+		}
+		return output;
+	}
+	
+	public void generateReport(){
+		if(!lastSearch.isEmpty()){
+			try {
+				PrintWriter reportFile = new PrintWriter(System.getProperty("user.home")+"\\Desktop\\Injury Report "+new File(new java.sql.Date(System.currentTimeMillis()).toString()+".csv"));
+				
+				
+				reportFile.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void main(String[] args){
+		AthleteTrackerDatabase database = new AthleteTrackerDatabase();
+		String input = "@#$H^&(*E)!::;LL-=||||||@!`O";
+		System.out.println(database.sanitize(input));
+		
 	}
 }
