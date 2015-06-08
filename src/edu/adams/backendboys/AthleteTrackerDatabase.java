@@ -281,7 +281,7 @@ public class AthleteTrackerDatabase {
 		String studentSSN="";
 		try {
 			System.out.println(tempStorage.get(0).get(1)+"\t"+tempStorage.get(0).get(1).length());
-			studentSSN = Encryption.decrypt(tempStorage.get(0).get(1).getBytes("UTF-8"));
+			studentSSN = Encryption.decrypt(tempStorage.get(0).get(1));
 		} catch (Exception e) {
 			studentSSN="Failed to get SSN";
 			//e.printStackTrace();
@@ -513,7 +513,7 @@ public class AthleteTrackerDatabase {
 		if(output){
 			String encryptedSSN;
 			try {
-				encryptedSSN = new String ( Encryption.encrypt(player.getInsuranceInfo().getStudentSSN()),"UTF-8");
+				encryptedSSN = new String ( Encryption.encrypt(player.getInsuranceInfo().getStudentSSN()));
 			} catch (Exception e) {
 				encryptedSSN="                ";
 				e.printStackTrace();
@@ -636,7 +636,7 @@ public class AthleteTrackerDatabase {
 		String[] searchData = {"STUDENTID="+player.getStudentID()};
 		String encryptedSSN;
 		try {
-			encryptedSSN = new String ( Encryption.encrypt(newInsuranceInfo.getStudentSSN()),"UTF-8");
+			encryptedSSN = new String (Encryption.encrypt(newInsuranceInfo.getStudentSSN()));
 		} catch (Exception e) {
 			encryptedSSN="                ";
 			e.printStackTrace();
