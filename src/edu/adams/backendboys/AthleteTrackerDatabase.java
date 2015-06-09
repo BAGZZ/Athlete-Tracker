@@ -23,7 +23,7 @@ public class AthleteTrackerDatabase {
 	}
 	
 	public ArrayList<Athlete> searchDatabase(String firstName, String middleInitial, String lastName, 
-											String sport, String injuryType, String activeInjuries,
+											String sport, String bodyPart, String injuryType, String activeInjuries,
 											Date start, Date end, String StudentID, String Season,
 											String gender){
 		ArrayList<Athlete> athletes = new ArrayList<Athlete>();
@@ -40,7 +40,8 @@ public class AthleteTrackerDatabase {
 		 studentIDs.retainAll(getAthleteIDsFromSportID(sportID));
 
 		//Gets a List of Student IDs that meet the Injury Info passed in. If everything is set to default, then it returns an empty list and we don't limit the results by what is in the Injury Table
-		 ArrayList<Integer> injuryStudentIDs =parseInjuryInfoAndSearch(injuryType, activeInjuries, start, end, Season);
+		 int bodyPartID=getBodyPartID(bodyPart);
+		 ArrayList<Integer> injuryStudentIDs =parseInjuryInfoAndSearch(injuryType, bodyPartID,activeInjuries, start, end, Season);
 		if(!injuryStudentIDs.isEmpty()){
 			studentIDs.retainAll(injuryStudentIDs);
 		}
@@ -104,9 +105,9 @@ public class AthleteTrackerDatabase {
 		return injuryTypes;
 	}
 	
-	private int getInjuryTypeID(String injuryType){
-		String injuryID= "";
-		String[] data = {"INJURYTYPE="+injuryType};
+	int getInjuryTypeID(String injuryType, int bodypartID){
+		String injuryID= "-1";
+		String[] data = {"BODYPARTID="+bodypartID+" ,","INJURYTYPE='"+injuryType+"'"};
 		ArrayList<ArrayList<String>> temp = database.select("INJURYTYPE", data);
 		for(ArrayList<String> pairs : temp){
 			injuryID=(pairs.get(0));
@@ -116,6 +117,7 @@ public class AthleteTrackerDatabase {
 	
 	public ArrayList<String> getInjuryTypeByBodyPart(String bodyPart){
 		ArrayList<String> injuryTypes = new ArrayList<String>();
+		injuryTypes.add("Any");
 		int partID;
 		if(bodyPart.equalsIgnoreCase("Any")){
 			partID=-1;
@@ -280,7 +282,7 @@ public class AthleteTrackerDatabase {
 		tempStorage= database.select("INSURANCEINFORMATION", idData);
 		String studentSSN="";
 		try {
-			System.out.println(tempStorage.get(0).get(1)+"\t"+tempStorage.get(0).get(1).length());
+			
 			studentSSN = Encryption.decrypt(tempStorage.get(0).get(1));
 		} catch (Exception e) {
 			studentSSN="Failed to get SSN";
@@ -333,14 +335,14 @@ public class AthleteTrackerDatabase {
 	}
 	
 	public boolean addInjury(Athlete currentAthlete,Injury injury){
-		String table ="INJURY";
+		String table ="INJURIES";
 		String activeString="";
 		if(injury.getActive()){
 			activeString="1,";
 		}else{
 			activeString="0";
 		}
-		String[] data = {"(STUDENTID,INJURYTYPE,INJURYDATE,ACTIVE,SEASON)", ""+currentAthlete.getStudentID()+",", injury.getInjuryType()+",", "'"+injury.getInjuryDate()+"',",activeString,injury.getSeason() };
+		String[] data = {"(STUDENTID,INJURYTYPEID,INJURYDATE,ACTIVE,SEASON)", ""+currentAthlete.getStudentID()+",", ""+getInjuryTypeID(injury.getInjuryType(),injury.getBodyPartID())+",", "'"+injury.getInjuryDate()+"',","'"+activeString,injury.getSeason()+"'" };
 		return database.insert(table, data);
 	}
 	
@@ -412,7 +414,7 @@ public class AthleteTrackerDatabase {
 		return new ArrayList<Integer>(ids);
 	}
 	
-	private ArrayList<Integer> parseInjuryInfoAndSearch(String injuryType,String activeInjuries,Date start, Date end, String Season){
+	private ArrayList<Integer> parseInjuryInfoAndSearch(String injuryType, int bodyPartID,String activeInjuries,Date start, Date end, String Season){
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		String dateString="";
 		String injuryTypeID="";
@@ -421,7 +423,7 @@ public class AthleteTrackerDatabase {
 		if(injuryType.equalsIgnoreCase("") || injuryType.equalsIgnoreCase("Any")){
 			injuryTypeID=" IS NOT NULL,";
 		}else{
-			injuryTypeID="='"+getInjuryTypeID(injuryType)+"',";
+			injuryTypeID="='"+getInjuryTypeID(injuryType,bodyPartID)+"',";
 		}
 		String active="";
 		if(activeInjuries.equalsIgnoreCase("Active")){
