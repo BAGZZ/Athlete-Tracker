@@ -35,14 +35,3 @@ public class InjuryProgress implements Comparable<InjuryProgress> {
 	}
 	
 }
-
-	public String getNote() {
-		return note;
-	}
-
-	@Override
-	public int compareTo(InjuryProgress note) {
-		return date.compareTo(note.date);
-	}
-	
-}
