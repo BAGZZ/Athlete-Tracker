@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Injury {
-	private int injuryID;
+	private int injuryID,bodyPartID;
 	private String injuryType, season;
 	private Boolean active;
 	private Date injuryDate;
 	ArrayList<SOAPNotes> soapNotes;
 	private String latestSOAPNote;
 	private String latestProgressNote;
-	private String lasestPhysicianVisit;
+	private String latestPhysicianVisit;
 	private ArrayList<PhysicianVisit> physicianVisits;
 	private ArrayList<InjuryProgress> injuryProgressNotes;
 	
@@ -21,7 +21,8 @@ public class Injury {
 
 	}
 	
-	public Injury(int injuryID, String injuryType, Date injuryDate, Boolean active, String season, ArrayList<SOAPNotes> soapNotes, ArrayList<PhysicianVisit> physicianVisits, ArrayList<InjuryProgress> injuryProgressNotes){
+	public Injury(int bodyPartID,int injuryID, String injuryType, Date injuryDate, Boolean active, String season, ArrayList<SOAPNotes> soapNotes, ArrayList<PhysicianVisit> physicianVisits, ArrayList<InjuryProgress> injuryProgressNotes){
+		this.bodyPartID=bodyPartID;
 		this.injuryID=injuryID;
 		this.injuryType=injuryType;
 		this.injuryDate=injuryDate;
@@ -31,14 +32,28 @@ public class Injury {
 		this.physicianVisits=new ArrayList<PhysicianVisit>(physicianVisits);
 		this.injuryProgressNotes=new ArrayList<InjuryProgress>(injuryProgressNotes);
 		Collections.sort(this.injuryProgressNotes);
-		latestProgressNote=this.injuryProgressNotes.get(0).toString();
+		if(!this.injuryProgressNotes.isEmpty()){
+			latestProgressNote=this.injuryProgressNotes.get(0).toString();
+		}else{
+			latestProgressNote=" ";
+		}
 		Collections.sort(this.soapNotes);
-		latestProgressNote=this.soapNotes.get(0).toString();
+		if(!this.soapNotes.isEmpty()){
+			latestSOAPNote=this.soapNotes.get(0).toString();
+		}else{
+			latestSOAPNote=" ";
+		}
 		Collections.sort(this.physicianVisits);
-		latestProgressNote=this.physicianVisits.get(0).toString();
+		if(!this.physicianVisits.isEmpty()){
+			latestPhysicianVisit=this.physicianVisits.get(0).toString();
+		}else{
+			latestPhysicianVisit=" ";
+		}
 	}
 	
-	public Injury(String injuryType, Date injuryDate, Boolean active, String season, ArrayList<SOAPNotes> soapNotes, ArrayList<PhysicianVisit> physicianVisits, ArrayList<InjuryProgress> injuryProgressNotes){
+	
+	public Injury(int bodyPartID,String injuryType, Date injuryDate, Boolean active, String season, ArrayList<SOAPNotes> soapNotes, ArrayList<PhysicianVisit> physicianVisits, ArrayList<InjuryProgress> injuryProgressNotes){
+		this.bodyPartID=bodyPartID;
 		this.injuryType=injuryType;
 		this.injuryDate=injuryDate;
 		this.active=active;
@@ -47,11 +62,23 @@ public class Injury {
 		this.physicianVisits=new ArrayList<PhysicianVisit>(physicianVisits);
 		this.injuryProgressNotes=new ArrayList<InjuryProgress>(injuryProgressNotes);
 		Collections.sort(this.injuryProgressNotes);
-		latestProgressNote=this.injuryProgressNotes.get(0).toString();
+		if(!this.injuryProgressNotes.isEmpty()){
+			latestProgressNote=this.injuryProgressNotes.get(0).toString();
+		}else{
+			latestProgressNote=" ";
+		}
 		Collections.sort(this.soapNotes);
-		latestProgressNote=this.soapNotes.get(0).toString();
+		if(!this.soapNotes.isEmpty()){
+			latestSOAPNote=this.soapNotes.get(0).toString();
+		}else{
+			latestSOAPNote=" ";
+		}
 		Collections.sort(this.physicianVisits);
-		latestProgressNote=this.physicianVisits.get(0).toString();
+		if(!this.physicianVisits.isEmpty()){
+			latestPhysicianVisit=this.physicianVisits.get(0).toString();
+		}else{
+			latestPhysicianVisit=" ";
+		}
 	}
 	
 	@Override
@@ -66,6 +93,10 @@ public class Injury {
 	}
 
 	
+	public int getBodyPartID() {
+		return bodyPartID;
+	}
+
 	public int getInjuryID() {
 		return injuryID;
 	}
@@ -92,8 +123,8 @@ public class Injury {
 		return latestProgressNote;
 	}
 
-	public String getLasestPhysicianVisit() {
-		return lasestPhysicianVisit;
+	public String getLatestPhysicianVisit() {
+		return latestPhysicianVisit;
 	}
 
 	public ArrayList<PhysicianVisit> getPhysicianVisit() {
