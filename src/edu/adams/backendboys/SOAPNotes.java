@@ -3,7 +3,8 @@ package edu.adams.backendboys;
 import java.sql.Date;
 
 public class SOAPNotes implements Comparable<SOAPNotes> {
-	 private String subjective,objective,analysis,plan;
+	 private String subjective,objective,Assessment
+	 ,plan;
 	 private Date date;
 	 
 	 @SuppressWarnings("unused")
@@ -14,14 +15,14 @@ public class SOAPNotes implements Comparable<SOAPNotes> {
 	 public SOAPNotes(String subjective, String objective, String analysis, String plan, Date date){
 		 this.subjective=subjective;
 		 this.objective=objective;
-		 this.analysis=analysis;
+		 this.Assessment=analysis;
 		 this.plan=plan;
 		 this.date=date;
 	 }
 	 
 	@Override
 	public String toString() {
-		return date.toString()+"\nS:"+subjective+"\nO:"+objective+"\nA:"+analysis+"\nP:"+plan;
+		return date.toString()+"\nS:"+subjective+"\nO:"+objective+"\nA:"+Assessment+"\nP:"+plan;
 	}
 
 	public String getSubjective() {
@@ -33,7 +34,7 @@ public class SOAPNotes implements Comparable<SOAPNotes> {
 	}
 
 	public String getAnalysis() {
-		return analysis;
+		return Assessment;
 	}
 
 	public String getPlan() {
