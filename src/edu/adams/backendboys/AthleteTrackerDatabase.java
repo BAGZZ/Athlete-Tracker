@@ -32,7 +32,7 @@ public class AthleteTrackerDatabase {
 		
 		//ATHLETE SPORTS TABLE
 		String sportID="";
-		if(sport.equalsIgnoreCase("") || sport.equalsIgnoreCase("Any")){
+		if(sport.equalsIgnoreCase("") || sport.equalsIgnoreCase("Any Sport")){
 			sportID=" IS NOT NULL";
 		}else{
 			sportID="="+getSportID(sport)+"";
