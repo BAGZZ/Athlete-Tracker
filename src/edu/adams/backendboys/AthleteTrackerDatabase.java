@@ -76,7 +76,7 @@ public class AthleteTrackerDatabase {
 
 	public ArrayList<String> getSports(){
 		ArrayList<String> sports= new ArrayList<String>();
-		sports.add("Any");
+		sports.add("Any Sport");
 		String[] data = {"SPORTID IS NOT NULL"};
 		ArrayList<ArrayList<String>> temp = database.select("SPORTS", data);
 		for(ArrayList<String> pairs : temp){
