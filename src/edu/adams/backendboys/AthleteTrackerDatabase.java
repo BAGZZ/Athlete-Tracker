@@ -190,10 +190,10 @@ public class AthleteTrackerDatabase {
 		String[] sportData = {" "};
 		for(int count = 0; count<sportIDs.size()-1;count++){
 			sportData[0]="SPORTID="+sportIDs.get(count);
-			sports+=database.select("SPORTS",sportData ).get(0).get(0)+",";
+			sports+=database.select("SPORTS",sportData ).get(0).get(1)+",";
 		}
 		sportData[0]="SPORTID="+sportIDs.get(sportIDs.size()-1);
-		sports+=database.select("SPORTS",sportData ).get(0).get(0);
+		sports+=database.select("SPORTS",sportData ).get(0).get(1);
 		
 		
 		//From Injury Table
@@ -676,10 +676,27 @@ public class AthleteTrackerDatabase {
 	
 	public void generateReport(){
 		if(!lastSearch.isEmpty()){
+			boolean first=true;
 			try {
 				PrintWriter reportFile = new PrintWriter(System.getProperty("user.home")+"\\Desktop\\Injury Report "+new File(new java.sql.Date(System.currentTimeMillis()).toString()+".csv"));
-				
-				
+				reportFile.println("First Name, Middle Initial, Last Name, Injury Type, Progress Note, Physician Visit ");
+				for(Athlete athlete : lastSearch){
+					first=true;
+					reportFile.print(athlete.getFirstName()+","+athlete.getMiddleInitial()+","+athlete.getLastName()+",");
+					if(!athlete.getInjuryList().isEmpty() && athlete.getActiveInjury()){
+						for(Injury injury : athlete.getInjuryList()){
+							if(injury.getActive()){
+								if(!first){
+									reportFile.print(" , , ,");
+								}
+								reportFile.println(injury.getInjuryType()+","+injury.getLatestProgressNote()+","+injury.getLatestPhysicianVisit());
+								first=false;
+							}
+						}
+					}else{
+						reportFile.println(" , , ");
+					}
+				}
 				reportFile.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
