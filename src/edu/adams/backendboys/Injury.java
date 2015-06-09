@@ -38,6 +38,22 @@ public class Injury {
 		latestProgressNote=this.physicianVisits.get(0).toString();
 	}
 	
+	public Injury(String injuryType, Date injuryDate, Boolean active, String season, ArrayList<SOAPNotes> soapNotes, ArrayList<PhysicianVisit> physicianVisits, ArrayList<InjuryProgress> injuryProgressNotes){
+		this.injuryType=injuryType;
+		this.injuryDate=injuryDate;
+		this.active=active;
+		this.season=season;
+		this.soapNotes=new ArrayList<SOAPNotes>(soapNotes);
+		this.physicianVisits=new ArrayList<PhysicianVisit>(physicianVisits);
+		this.injuryProgressNotes=new ArrayList<InjuryProgress>(injuryProgressNotes);
+		Collections.sort(this.injuryProgressNotes);
+		latestProgressNote=this.injuryProgressNotes.get(0).toString();
+		Collections.sort(this.soapNotes);
+		latestProgressNote=this.soapNotes.get(0).toString();
+		Collections.sort(this.physicianVisits);
+		latestProgressNote=this.physicianVisits.get(0).toString();
+	}
+	
 	@Override
 	public String toString() {
 		return "Injury [getInjuryID()=" + getInjuryID() + ", getInjuryType()="
