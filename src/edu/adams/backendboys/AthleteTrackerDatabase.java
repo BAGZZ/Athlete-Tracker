@@ -33,11 +33,13 @@ public class AthleteTrackerDatabase {
 		//ATHLETE SPORTS TABLE
 		String sportID="";
 		if(sport.equalsIgnoreCase("") || sport.equalsIgnoreCase("Any Sport")){
-			sportID=" IS NOT NULL";
+			
 		}else{
 			sportID="="+getSportID(sport)+"";
+			if(!sportID.contains("-1")){
+				studentIDs.retainAll(getAthleteIDsFromSportID(sportID));
+			}
 		}
-		 studentIDs.retainAll(getAthleteIDsFromSportID(sportID));
 
 		//Gets a List of Student IDs that meet the Injury Info passed in. If everything is set to default, then it returns an empty list and we don't limit the results by what is in the Injury Table
 		 int bodyPartID=getBodyPartID(bodyPart);
@@ -72,7 +74,7 @@ public class AthleteTrackerDatabase {
 	private ArrayList<Integer> getAthleteIDsFromSportID(String sportID) {
 		ArrayList<Integer> athleteIDs = new ArrayList<Integer>();
 		String table="ATHLETESPORTS";
-		String[] data= {"SPORTID"+sportID};
+		String[] data= {"SPORTID="+sportID};
 		for(ArrayList<String> athleteSportRelation : database.select(table, data)){
 			athleteIDs.add(Integer.parseInt(athleteSportRelation.get(0)));
 		}
@@ -490,7 +492,7 @@ public class AthleteTrackerDatabase {
 			active="";
 		}
 		
-		if(start.equals(end)){
+		if(start.compareTo(end)!=-1){
 			dateString="";
 		}else{
 			startSQL= new java.sql.Date(start.getTime());
@@ -723,11 +725,13 @@ public class AthleteTrackerDatabase {
 	public String sanitize(String input){
 		String accepted="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,/";
 		String output="";
-		for(int count=0;count<input.length();count++){
-			if(accepted.contains(""+input.charAt(count))){
-				output+=""+input.charAt(count);
+		if(input!=null){
+			for(int count=0;count<input.length();count++){
+				if(accepted.contains(""+input.charAt(count))){
+					output+=""+input.charAt(count);
+				}
+				
 			}
-			
 		}
 		return output;
 	}
@@ -764,9 +768,10 @@ public class AthleteTrackerDatabase {
 	}
 	
 	public static void main(String[] args){
-		AthleteTrackerDatabase database = new AthleteTrackerDatabase();
-		String input = "@#$H^&(*E)!::;LL-=||||||@!`O";
-		System.out.println(database.sanitize(input));
+		//AthleteTrackerDatabase database = new AthleteTrackerDatabase();
+		///String input = "@#$H^&(*E)!::;LL-=||||||@!`O";
+		//System.out.println(database.sanitize(input));
+		AddInjuryToAthlete.main(args);
 		
 	}
 }
