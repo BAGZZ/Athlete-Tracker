@@ -107,10 +107,12 @@ public class AthleteTrackerDatabase {
 	
 	int getInjuryTypeID(String injuryType, int bodypartID){
 		String injuryID= "-1";
-		String[] data = {"BODYPARTID="+bodypartID+" ,","INJURYTYPE='"+injuryType+"'"};
+		String[] data = {"BODYPARTID="+bodypartID};
 		ArrayList<ArrayList<String>> temp = database.select("INJURYTYPE", data);
-		for(ArrayList<String> pairs : temp){
-			injuryID=(pairs.get(0));
+		for(ArrayList<String> tuple : temp){
+			if(tuple.get(2).equalsIgnoreCase(injuryType)){
+				injuryID=(tuple.get(0));
+			}
 		}
 		return Integer.parseInt(injuryID);
 	}
@@ -228,19 +230,20 @@ public class AthleteTrackerDatabase {
 			String[] injuryIDData = {"INJURYID="+injuryID};
 			innerTempStorage= database.select("SOAPNOTES", injuryIDData);
 			for(ArrayList<String> soapNote : innerTempStorage){
-				subjective=soapNote.get(0);
-				objective=soapNote.get(1);
-				analysis= soapNote.get(2);
-				String plan= soapNote.get(3);
-				soapDate= java.sql.Date.valueOf(soapNote.get(4));
+				subjective=soapNote.get(1);
+				objective=soapNote.get(2);
+				analysis= soapNote.get(3);
+				String plan= soapNote.get(4);
+				soapDate= java.sql.Date.valueOf(soapNote.get(5));
 				soapNotes.add(new SOAPNotes(subjective, objective, analysis, plan, soapDate));
 			}
 			
 			//database search for all relevant physician notes
 			ArrayList<PhysicianVisit> physicianVisits = new ArrayList<PhysicianVisit>();
 			innerTempStorage = new ArrayList<ArrayList<String>>();
-			innerTempStorage= database.select("SOAPNOTES", injuryIDData);
+			innerTempStorage= database.select("PHYSICIANVISIT", injuryIDData);
 			for(ArrayList<String> physicianVisit : innerTempStorage){
+				System.out.println(physicianVisit.get(1));
 				visitDate = java.sql.Date.valueOf(physicianVisit.get(1));
 				visitNote = physicianVisit.get(2);
 				physicianVisits.add(new PhysicianVisit(visitDate, visitNote));
@@ -253,7 +256,7 @@ public class AthleteTrackerDatabase {
 			innerTempStorage = new ArrayList<ArrayList<String>>();
 			innerTempStorage= database.select("INJURYPROGRESS", injuryIDData);
 			for(ArrayList<String> injuryProgress : innerTempStorage){
-				visitDate = java.sql.Date.valueOf(injuryProgress.get(2));
+				visitDate = java.sql.Date.valueOf(injuryProgress.get(1));
 				visitNote = injuryProgress.get(2);
 				injuryProgressNotes.add(new InjuryProgress(visitDate, visitNote));
 			}
@@ -324,7 +327,7 @@ public class AthleteTrackerDatabase {
 	
 	private String getInjuryType(int injuryTypeID) {
 		String[] data = {"INJURYTYPEID="+injuryTypeID};
-		return database.select("INJURYTYPES", data).get(0).get(1);
+		return database.select("INJURYTYPE", data).get(0).get(1);
 	}
 		
 	public boolean addBodyPart(String bodyPart){
@@ -337,13 +340,56 @@ public class AthleteTrackerDatabase {
 	public boolean addInjury(Athlete currentAthlete,Injury injury){
 		String table ="INJURIES";
 		String activeString="";
+		boolean output=true;
 		if(injury.getActive()){
-			activeString="1,";
+			activeString="1";
 		}else{
 			activeString="0";
 		}
-		String[] data = {"(STUDENTID,INJURYTYPEID,INJURYDATE,ACTIVE,SEASON)", ""+currentAthlete.getStudentID()+",", ""+getInjuryTypeID(injury.getInjuryType(),injury.getBodyPartID())+",", "'"+injury.getInjuryDate()+"',","'"+activeString,injury.getSeason()+"'" };
-		return database.insert(table, data);
+		String[] data = {"(STUDENTID,INJURYTYPEID,INJURYDATE,ACTIVE,SEASON)", ""+currentAthlete.getStudentID()+",", ""+getInjuryTypeID(injury.getInjuryType(),injury.getBodyPartID())+",", "'"+injury.getInjuryDate()+"',",activeString+",","'"+injury.getSeason()+"'" };
+		/*for(String word : data){
+			System.out.print(word+"\t");
+		}
+		System.out.println();*/
+		output = output && database.insert(table, data);
+		
+		//get injury id
+		//String[] searchData={"STUDENTID="+currentAthlete.getStudentID()+",","INJURYTYPEID="+getInjuryTypeID(injury.getInjuryType(),injury.getBodyPartID())+",","INJURYDATE='"+injury.getInjuryDate()+"',","ACTIVE="+activeString+",","SEASON='"+injury.getSeason()+"'"};
+		String[][] searchData={{"STUDENTID="+currentAthlete.getStudentID()},{"INJURYTYPEID="+getInjuryTypeID(injury.getInjuryType(),injury.getBodyPartID())},{"INJURYDATE='"+injury.getInjuryDate()+"'"},{"ACTIVE="+activeString},{"SEASON='"+injury.getSeason()+"'"}};
+		ArrayList<ArrayList<String>> temp = database.select(table, searchData[0]);
+		for(int count =1; count<temp.size();count++){
+			temp.retainAll(database.select(table, searchData[count]));
+		}
+		int injuryID=Integer.parseInt(temp.get(0).get(0));
+		String[] soapData = new String[7];
+		for(SOAPNotes soap: injury.getSoapNotes()){
+			soapData[0]="(INJURYID,SUBJECTIVE,OBJECTIVE,ANALYSIS,PLAN,DATE)";
+			soapData[1]=""+injuryID+",";
+			soapData[2]="'"+soap.getSubjective()+"',";
+			soapData[3]="'"+soap.getObjective()+"',";
+			soapData[4]="'"+soap.getAssessment()+"',";
+			soapData[5]="'"+soap.getPlan()+"',";
+			soapData[6]="'"+soap.getDate()+"'";
+			database.insert("SOAPNOTES", soapData);
+		}
+		String[] progressData = new String[4];
+		for(InjuryProgress progress: injury.getInjuryProgressNotes()){
+			progressData[0]="(INJURYID,DATE,NOTE)";
+			progressData[1]=""+injuryID+",";
+			progressData[2]="'"+progress.getDate()+"',";
+			progressData[3]="'"+progress.getNote()+"'";
+			database.insert("INJURYPROGRESS", progressData );
+		}
+		
+		String[] doctorData = new String[4];
+		for(PhysicianVisit visit: injury.getPhysicianVisit()){
+			doctorData[0]="(INJURYID,DATE,NOTE)";
+			doctorData[1]=""+injuryID+",";
+			doctorData[2]="'"+visit.getDate()+"',";
+			doctorData[3]="'"+visit.getNote()+"'";
+			database.insert("PHYSICIANVISIT", doctorData );
+		}
+		return output;
 	}
 	
 	public boolean addSport(String sport){
@@ -543,13 +589,13 @@ public class AthleteTrackerDatabase {
 
 	public boolean addSOAPNote(Injury injury, SOAPNotes note){
 		String table = "SOAPNOTES";
-		String[] data = {"(INJURYID,SUBJECTIVE,OBJECTIVE,ANALYSIS,PLAN,DATE)",""+injury.getInjuryID()+",",note.getSubjective()+",",note.getObjective()+",",note.getAnalysis()+",",note.getSubjective()+",","'"+note.getDate()+"'"};
+		String[] data = {"(INJURYID,SUBJECTIVE,OBJECTIVE,ANALYSIS,PLAN,DATE)",""+injury.getInjuryID()+",","'"+note.getSubjective()+"',","'"+note.getObjective()+"',","'"+note.getAssessment()+"',","'"+note.getSubjective()+"',","'"+note.getDate()+"'"};
 		return database.insert(table, data);
 	}
 
 	public boolean addProgressNote(Injury injury, InjuryProgress note){
 		String table= "INJURYPROGRESS";
-		String[] data= {"(INJURYID,DATE,NOTE)",""+injury.getInjuryID()+",","'"+note.getDate()+"',",note.getNote()};
+		String[] data= {"(INJURYID,DATE,NOTE)",""+injury.getInjuryID()+",","'"+note.getDate()+"',","'"+note.getNote()+"'"};
 		return database.insert(table, data);
 	}
 
