@@ -164,7 +164,7 @@ public class AthleteTrackerDatabase {
 		return new ArrayList<String>(bodyParts);
 	}
 	
-	private Athlete getAthleteByID(Integer id){
+	public Athlete getAthleteByID(Integer id){
 		String[] idData = {"STUDENTID="+id};
 		ArrayList<String> temp=database.select("ATHLETE", idData).get(0);
 		int studentID = Integer.parseInt(temp.get(0));
