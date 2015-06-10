@@ -243,7 +243,6 @@ public class AthleteTrackerDatabase {
 			innerTempStorage = new ArrayList<ArrayList<String>>();
 			innerTempStorage= database.select("PHYSICIANVISIT", injuryIDData);
 			for(ArrayList<String> physicianVisit : innerTempStorage){
-				System.out.println(physicianVisit.get(1));
 				visitDate = java.sql.Date.valueOf(physicianVisit.get(1));
 				visitNote = physicianVisit.get(2);
 				physicianVisits.add(new PhysicianVisit(visitDate, visitNote));
@@ -327,7 +326,7 @@ public class AthleteTrackerDatabase {
 	
 	private String getInjuryType(int injuryTypeID) {
 		String[] data = {"INJURYTYPEID="+injuryTypeID};
-		return database.select("INJURYTYPE", data).get(0).get(1);
+		return database.select("INJURYTYPE", data).get(0).get(2);
 	}
 		
 	public boolean addBodyPart(String bodyPart){
