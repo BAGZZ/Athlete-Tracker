@@ -47,7 +47,7 @@ public class Athlete {
 			this.injuries+=injuryList.get(count).getInjuryType()+", ";
 			this.activeInjury= this.activeInjury || injuryList.get(count).getActive();
 		}
-		if(!this.injuries.isEmpty()){
+		if(!this.injuryList.isEmpty()){
 			currentInjury=this.injuryList.get(0);
 			this.injuries+=injuryList.get(injuryList.size()-1).getInjuryType();
 			this.activeInjury= this.activeInjury || injuryList.get(injuryList.size()-1).getActive();
@@ -148,6 +148,4 @@ public class Athlete {
 	public InsuranceInformation getInsuranceInfo() {
 		return insuranceInfo;
 	}
-	
-	
 }
