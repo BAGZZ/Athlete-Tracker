@@ -33,7 +33,7 @@ public class SOAPNotes implements Comparable<SOAPNotes> {
 		return objective;
 	}
 
-	public String getAnalysis() {
+	public String getAssessment() {
 		return Assessment;
 	}
 
