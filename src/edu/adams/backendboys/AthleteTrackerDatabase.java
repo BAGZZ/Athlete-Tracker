@@ -42,9 +42,9 @@ public class AthleteTrackerDatabase {
 		//Gets a List of Student IDs that meet the Injury Info passed in. If everything is set to default, then it returns an empty list and we don't limit the results by what is in the Injury Table
 		 int bodyPartID=getBodyPartID(bodyPart);
 		 ArrayList<Integer> injuryStudentIDs =parseInjuryInfoAndSearch(injuryType, bodyPartID,activeInjuries, start, end, Season);
-		if(!injuryStudentIDs.isEmpty()){
+		 if(!(injuryStudentIDs==null)){
 			studentIDs.retainAll(injuryStudentIDs);
-		}
+		 }
 		
 		for(Integer studentID : studentIDs){
 			athletes.add(getAthleteByID(studentID));
@@ -55,11 +55,16 @@ public class AthleteTrackerDatabase {
 	
 	private ArrayList<Integer> getStudentIDsbyInjury(String injuryTypeID,
 			String active, String dateString, String season) {
+		ArrayList<ArrayList<String>> temp;
 		ArrayList<Integer> studentIDs = new ArrayList<Integer>();
 		String table="INJURIES";
-		String[] data= {"INJURYTYPEID="+injuryTypeID+",","ACTIVE="+active+",","DATE"+dateString+",","SEASON"+season};
-		for(ArrayList<String> injury : database.select(table, data)){
-			studentIDs.add(Integer.parseInt(injury.get(0)));
+		String[][] data= {{injuryTypeID},{active},{dateString},{season}};
+		temp = database.select(table, data[0]);
+		for(int count=1;count<data.length;count++){
+			temp.retainAll(database.select(table, data[count]));
+		}
+		for(ArrayList<String> injury : temp){
+			studentIDs.add(Integer.parseInt(injury.get(1)));
 		}
 		return studentIDs;
 	}
@@ -133,7 +138,7 @@ public class AthleteTrackerDatabase {
 			data[0]="BODYPARTID="+partID;
 		}
 		for(ArrayList<String> injuryType : database.select("INJURYTYPE", data)){
-			injuryTypes.add(injuryType.get(3));
+			injuryTypes.add(injuryType.get(2));
 		}
 		return new ArrayList<String>(injuryTypes);
 	}
@@ -431,28 +436,34 @@ public class AthleteTrackerDatabase {
 		}else{
 			gender="='"+gender.toUpperCase().charAt(0)+"'";
 		}
-		String[] data ={"FIRSTNAME"+firstName+", " , "MIDDLEINITIAL"+middleInitial +", " , "LASTNAME"+lastName+", " , "STUDENTID"+studentID+", " , "GENDER"+gender};
+		String[][] data ={{"FIRSTNAME"+firstName}, {"MIDDLEINITIAL"+middleInitial}, {"LASTNAME"+lastName}, {"STUDENTID"+studentID}, {"GENDER"+gender}};
 		
 		if(firstName.equalsIgnoreCase("IS NOT NULL")){
-			data[0]="";
+			data[0][0]="";
 		}
 		
 		if(middleInitial.equalsIgnoreCase("IS NOT NULL")){
-			data[1]="";
+			data[1][0]="";
 		}
 		
 		if(lastName.equalsIgnoreCase("IS NOT NULL")){
-				data[2]="";
+				data[2][0]="";
 		}
 		
 		if(studentID.equalsIgnoreCase("IS NOT NULL")){
-			data[3]="";
+			data[3][0]="";
 		}
 		
 		if(gender.equalsIgnoreCase("IS NOT NULL")){
-			data[4]="";
+			data[4][0]="";
 		}
-		ArrayList<ArrayList<String>> temp = database.select("ATHLETE", data);
+				
+				
+				
+		ArrayList<ArrayList<String>> temp = database.select("ATHLETE", data[0]);
+		for(int count=1; count<data.length; count++){
+			temp.retainAll(database.select("ATHLETE", data[count]));
+		}
 		for(ArrayList<String> athlete : temp){
 			ids.add(Integer.parseInt(athlete.get(0)));
 		}
@@ -466,37 +477,39 @@ public class AthleteTrackerDatabase {
 		java.sql.Date startSQL= null;
 		java.sql.Date endSQL = null;
 		if(injuryType.equalsIgnoreCase("") || injuryType.equalsIgnoreCase("Any")){
-			injuryTypeID=" IS NOT NULL,";
+			injuryTypeID="";
 		}else{
-			injuryTypeID="='"+getInjuryTypeID(injuryType,bodyPartID)+"',";
+			injuryTypeID="INJURYID='"+getInjuryTypeID(injuryType,bodyPartID)+"'";
 		}
 		String active="";
 		if(activeInjuries.equalsIgnoreCase("Active")){
-			active="1,";
+			active="ACTIVE=1";
 		}else if(activeInjuries.equalsIgnoreCase("Inactive")){
-			active="0,";
+			active="ACTIVE=0";
 		}else{
-			active="IS NOT NULL,";
+			active="";
 		}
 		
 		if(start.equals(end)){
-			dateString="IS NOT NULL,";
+			dateString="";
 		}else{
 			startSQL= new java.sql.Date(start.getTime());
 			endSQL= new java.sql.Date(end.getTime());
-			dateString="BETWEEN '"+startSQL.toString()+"' AND '"+endSQL.toString()+"',";
+			dateString="INJURYDATE BETWEEN '"+startSQL.toString()+"' AND '"+endSQL.toString()+"'";
 		}
 		if(Season.equalsIgnoreCase("")){
-			Season="IS NOT NULL";
+			Season="";
 		}else{
-			Season="='"+Season+"'";
+			Season="SEASON='"+Season+"'";
 		}
 		
-		if(injuryType.equalsIgnoreCase(active) && active.equalsIgnoreCase(dateString) &&  dateString.contains(Season)){
+		if(injuryTypeID.equalsIgnoreCase("") && active.equalsIgnoreCase("") && dateString.equalsIgnoreCase("") && Season.equalsIgnoreCase("")){
+			return null;
+		}else{
 			ids = new ArrayList<Integer>(getStudentIDsbyInjury(injuryTypeID, active, dateString, Season));
+			return new ArrayList<Integer>(ids);
 		}
 		
-		return new ArrayList<Integer>(ids);
 	}
 	
 	public ArrayList<String> getAllInjuryStatus(){
