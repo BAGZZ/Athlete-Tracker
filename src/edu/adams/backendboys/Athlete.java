@@ -42,11 +42,11 @@ public class Athlete {
 		this.contacts=contacts;
 		this.insuranceInfo=insuranceInfo;
 		for(int count=0; count<this.injuryList.size()-1;count++){
-			this.injuries+=injuryList.get(count).toString()+", ";
+			this.injuries+=injuryList.get(count).getInjuryType()+", ";
 			this.activeInjury= this.activeInjury || injuryList.get(count).getActive();
 		}
 		if(!this.injuries.isEmpty()){
-			this.injuries+=injuryList.get(injuryList.size()-1).toString();
+			this.injuries+=injuryList.get(injuryList.size()-1).getInjuryType();
 			this.activeInjury= this.activeInjury || injuryList.get(injuryList.size()-1).getActive();
 		}
 		
