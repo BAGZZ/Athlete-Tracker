@@ -154,6 +154,15 @@ public class AthleteTrackerDatabase {
 		return id;
 	}
 	
+	public String getBodyPart(int id){
+		String output="";
+		String[] data = {"BODYPARTID="+id};
+		if(id>=1){
+			output=database.select("BODYPART", data).get(0).get(0);
+		}
+		return output;
+	}
+	
 	public ArrayList<String> getAllBodyParts(){
 		ArrayList<String> bodyParts = new ArrayList<String>();
 		bodyParts.add("Any");
@@ -217,7 +226,7 @@ public class AthleteTrackerDatabase {
 		boolean activeInjury;
 		String subjective;
 		String objective;
-		String analysis;
+		String assessment;
 		java.sql.Date soapDate;
 		java.sql.Date visitDate;
 		String visitNote;
@@ -239,10 +248,10 @@ public class AthleteTrackerDatabase {
 			for(ArrayList<String> soapNote : innerTempStorage){
 				subjective=soapNote.get(1);
 				objective=soapNote.get(2);
-				analysis= soapNote.get(3);
+				assessment= soapNote.get(3);
 				String plan= soapNote.get(4);
 				soapDate= java.sql.Date.valueOf(soapNote.get(5));
-				soapNotes.add(new SOAPNotes(subjective, objective, analysis, plan, soapDate));
+				soapNotes.add(new SOAPNotes(subjective, objective, assessment, plan, soapDate));
 			}
 			
 			//database search for all relevant physician notes
@@ -369,7 +378,7 @@ public class AthleteTrackerDatabase {
 		int injuryID=Integer.parseInt(temp.get(0).get(0));
 		String[] soapData = new String[7];
 		for(SOAPNotes soap: injury.getSoapNotes()){
-			soapData[0]="(INJURYID,SUBJECTIVE,OBJECTIVE,ANALYSIS,PLAN,DATE)";
+			soapData[0]="(INJURYID,SUBJECTIVE,OBJECTIVE,ASSESSMENT,PLAN,DATE)";
 			soapData[1]=""+injuryID+",";
 			soapData[2]="'"+soap.getSubjective()+"',";
 			soapData[3]="'"+soap.getObjective()+"',";
@@ -603,7 +612,7 @@ public class AthleteTrackerDatabase {
 
 	public boolean addSOAPNote(Injury injury, SOAPNotes note){
 		String table = "SOAPNOTES";
-		String[] data = {"(INJURYID,SUBJECTIVE,OBJECTIVE,ANALYSIS,PLAN,DATE)",""+injury.getInjuryID()+",","'"+note.getSubjective()+"',","'"+note.getObjective()+"',","'"+note.getAssessment()+"',","'"+note.getSubjective()+"',","'"+note.getDate()+"'"};
+		String[] data = {"(INJURYID,SUBJECTIVE,OBJECTIVE,ASSESSMENT,PLAN,DATE)",""+injury.getInjuryID()+",","'"+note.getSubjective()+"',","'"+note.getObjective()+"',","'"+note.getAssessment()+"',","'"+note.getSubjective()+"',","'"+note.getDate()+"'"};
 		return database.insert(table, data);
 	}
 
@@ -771,7 +780,8 @@ public class AthleteTrackerDatabase {
 		//AthleteTrackerDatabase database = new AthleteTrackerDatabase();
 		///String input = "@#$H^&(*E)!::;LL-=||||||@!`O";
 		//System.out.println(database.sanitize(input));
-		AddInjuryToAthlete.main(args);
+		//AddInjuryToAthlete.main(args);
+		//This main method does nothing
 		
 	}
 }
