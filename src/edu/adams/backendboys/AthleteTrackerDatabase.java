@@ -158,7 +158,7 @@ public class AthleteTrackerDatabase {
 		String output="";
 		String[] data = {"BODYPARTID="+id};
 		if(id>=1){
-			output=database.select("BODYPART", data).get(0).get(0);
+			output=database.select("BODYPART", data).get(0).get(1);
 		}
 		return output;
 	}
@@ -780,8 +780,8 @@ public class AthleteTrackerDatabase {
 		//AthleteTrackerDatabase database = new AthleteTrackerDatabase();
 		///String input = "@#$H^&(*E)!::;LL-=||||||@!`O";
 		//System.out.println(database.sanitize(input));
-		//AddInjuryToAthlete.main(args);
-		//This main method does nothing
+		///AddInjuryToAthlete.main(args);
+		//THIS MAIN METHOD DOES ABSOLUTELY NOTHING, I PROMISE
 		
 	}
 }
