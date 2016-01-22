@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainclient.EditInjuryWindowController">
+   <children>
+      <SplitPane dividerPositions="0.005016722408026756" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="97.0" prefWidth="798.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="myAnchorPanes">
+               <children>
+                  <SplitPane layoutY="-12.0" prefHeight="612.0" prefWidth="800.0">
+                    <items>
+                      <AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0">
+                           <children>
+                              <ScrollPane layoutY="-11.0" prefHeight="615.0" prefWidth="800.0">
+                                 <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1189.0" prefWidth="790.0" styleClass="myAnchorPanes">
+                                       <children>
+                                          <Label fx:id="editInjuryInjuryTypeLabel" layoutX="339.0" layoutY="24.0" styleClass="editInjury" text="Injury Type" underline="true">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="editInjuryInjuryDateLabel" layoutX="470.0" layoutY="25.0" styleClass="editInjury" text="Date" underline="true">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="editInjurySubjectiveLabel" layoutX="70.0" layoutY="53.0" styleClass="editInjury" text="Subjective">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="editInjuryObjectiveLabel" layoutX="70.0" layoutY="190.0" styleClass="editInjury" text="Objective">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="editInjuryAnalysisLabel" layoutX="70.0" layoutY="327.0" styleClass="editInjury" text="Assessment">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="editInjuryPlanLabel" layoutX="70.0" layoutY="464.0" styleClass="editInjury" text="Plan">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextArea fx:id="editInjurySNotesTextArea" layoutX="70.0" layoutY="74.0" prefHeight="116.0" prefWidth="643.0" promptText="S notes" />
+                                          <TextArea fx:id="editInjuryONotesTextArea" layoutX="70.0" layoutY="211.0" prefHeight="116.0" prefWidth="643.0" promptText="O Notes" />
+                                          <TextArea fx:id="editInjuryANotesTextArea" layoutX="70.0" layoutY="348.0" prefHeight="116.0" prefWidth="643.0" promptText="A Notes" />
+                                          <TextArea fx:id="editInjuryPNotesTextArea" layoutX="70.0" layoutY="485.0" prefHeight="116.0" prefWidth="643.0" promptText="P notes" />
+                                          <Label fx:id="editInjuryProgressNotesLabel" layoutX="76.0" layoutY="671.0" styleClass="editInjury" text="Progress Notes">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ScrollPane layoutX="72.0" layoutY="703.0" prefHeight="114.0" prefWidth="643.0">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="112.0" prefWidth="643.0">
+                                                   <children>
+                                                      <TableView fx:id="editInjuryProgressNotesTableView" layoutX="107.0" layoutY="-52.0" prefHeight="112.0" prefWidth="643.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <columns>
+                                                          <TableColumn fx:id="editInjuryProgressNotesDateTableColumn" prefWidth="75.0" text="Date" />
+                                                          <TableColumn fx:id="editInjuryProgressNotesNoteTableColumn" prefWidth="600.0" text="Note" />
+                                                        </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </ScrollPane>
+                                          <Label fx:id="editInjuryNewProgressNotesLabel" layoutX="72.0" layoutY="820.0" styleClass="editInjury" text="New Progress Notes">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <DatePicker fx:id="editInjuryNewProgressNotesDatePicker" layoutX="66.0" layoutY="845.0" prefHeight="25.0" prefWidth="138.0" />
+                                          <TextArea fx:id="editInjuryNewProgressNotesTextArea" layoutX="229.0" layoutY="840.0" prefHeight="56.0" prefWidth="482.0" />
+                                          <Button fx:id="editInjuryNewProgressNotesAddNoteButton" layoutX="103.0" layoutY="884.0" mnemonicParsing="false" onAction="#addNoteProgressButton" text="Add Note" />
+                                          <Button fx:id="editInjuryNewPhysicianNotesAddNoteButton" layoutX="105.0" layoutY="1150.0" mnemonicParsing="false" onAction="#addNotePhysicianButton" text="Add Note" />
+                                          <TextArea fx:id="editInjuryNewPhysicianNotesTextArea" layoutX="231.0" layoutY="1106.0" prefHeight="56.0" prefWidth="482.0" />
+                                          <DatePicker fx:id="editInjuryNewPhysicianNotesDatePicker" layoutX="68.0" layoutY="1111.0" prefHeight="25.0" prefWidth="138.0" />
+                                          <Label fx:id="editInjuryNewPhysicianNotesLabel" layoutX="74.0" layoutY="1086.0" styleClass="editInjury" text="New Physician Notes">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ScrollPane layoutX="74.0" layoutY="969.0" prefHeight="114.0" prefWidth="643.0">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="112.0" prefWidth="643.0">
+                                                   <children>
+                                                      <TableView fx:id="editInjuryPhysicianNotesTableView" layoutX="107.0" layoutY="-52.0" prefHeight="112.0" prefWidth="643.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="editInjuryPhysicianNotesDateTableColumn" prefWidth="75.0" text="Date" />
+                                                            <TableColumn fx:id="editInjuryPhysicianNotesNoteTableColumn" prefWidth="600.0" text="Note" />
+                                                         </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </ScrollPane>
+                                          <Label fx:id="editInjuryPhysicianNotesLabel" layoutX="74.0" layoutY="928.0" styleClass="editInjury" text="Physician Notes">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="makeChangesButton" layoutX="339.0" layoutY="621.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="100.0" text="Make Changes" />
+                                          <CheckBox fx:id="editInjuryActiveInjuryCheckBox" layoutX="586.0" layoutY="45.0" mnemonicParsing="false" styleClass="editInjury" text="Active Injury" />
+                                          <Label fx:id="editInjuryInjuryDateLabel1" layoutX="470.0" layoutY="48.0" styleClass="editInjury" text="Date" />
+                                          <Label fx:id="editInjuryInjuryTypeLabel1" layoutX="339.0" layoutY="48.0" styleClass="editInjury" text="InjuryType" />
+                                          <Label fx:id="editInjuryBodyPartLabel" layoutX="184.0" layoutY="24.0" styleClass="editInjury" text="Body Part" underline="true">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="editInjuryBodyPartLabel1" layoutX="184.0" layoutY="48.0" styleClass="editInjury" text="Body Part" />
+                                          <Label fx:id="editInjuryAthleteNameLabel" layoutX="5.0" layoutY="24.0" prefHeight="22.0" prefWidth="175.0" text="Athlete Name" textFill="#f2f2f2" underline="true">
+                                             <font>
+                                                <Font name="Calibri Bold Italic" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
