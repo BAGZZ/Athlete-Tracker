@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="myAnchorPanes" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainclient.AddInjuryWindowController">
+   <children>
+      <ScrollPane layoutX="1.0" layoutY="1.0" prefHeight="600.0" prefWidth="800.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="845.0" prefWidth="780.0">
+               <children>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="843.0" prefWidth="780.0" styleClass="myAnchorPanes">
+                     <children>
+                        <Label fx:id="addInjuryInjuryDateLabel" layoutX="430.0" layoutY="14.0" styleClass="addInjury" text="Date" underline="true">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="addInjuryInjuryDateDatePicker" layoutX="356.0" layoutY="36.0" promptText="Date of Injury" />
+                        <Label fx:id="addInjurySubjectiveLabel" layoutX="65.0" layoutY="65.0" styleClass="addInjuryTitles" text="Subjective">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addInjuryObjectiveLabel" layoutX="65.0" layoutY="202.0" styleClass="addInjuryTitles" text="Objective">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addInjuryAnalysisLabel" layoutX="65.0" layoutY="339.0" styleClass="addInjuryTitles" text="Analysis">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addInjuryPlanLabel" layoutX="65.0" layoutY="476.0" styleClass="addInjuryTitles" text="Plan">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="addInjurySNotesTextArea" layoutX="65.0" layoutY="86.0" prefHeight="116.0" prefWidth="643.0" promptText="S notes" />
+                        <TextArea fx:id="addInjuryONotesTextArea" layoutX="65.0" layoutY="223.0" prefHeight="116.0" prefWidth="643.0" promptText="O Notes" />
+                        <TextArea fx:id="addInjuryANotesTextArea" layoutX="65.0" layoutY="360.0" prefHeight="116.0" prefWidth="643.0" promptText="A Notes" />
+                        <TextArea fx:id="addInjuryPNotesTextArea" layoutX="65.0" layoutY="497.0" prefHeight="116.0" prefWidth="643.0" promptText="P notes" />
+                        <Label fx:id="addInjuryNewProgressNotesLabel" layoutX="64.0" layoutY="631.0" styleClass="addInjuryTitles" text="New Progress Notes">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="addInjuryNewProgressNotesDatePicker" layoutX="64.0" layoutY="656.0" prefHeight="25.0" prefWidth="138.0" />
+                        <TextArea fx:id="addInjuryNewProgressNotesTextArea" layoutX="223.0" layoutY="631.0" prefHeight="56.0" prefWidth="482.0" />
+                        <TextArea fx:id="addInjuryNewPhysicianNotesTextArea" layoutX="224.0" layoutY="720.0" prefHeight="56.0" prefWidth="482.0" />
+                        <DatePicker fx:id="addInjuryNewPhysicianNotesDatePicker" layoutX="64.0" layoutY="745.0" prefHeight="25.0" prefWidth="138.0" />
+                        <Label fx:id="addInjuryNewPhysicianNotesLabel" layoutX="64.0" layoutY="720.0" styleClass="addInjuryTitles" text="New Physician Notes">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="addInjuryButton" layoutX="361.0" layoutY="800.0" mnemonicParsing="false" onAction="#addInjuryButtonAction" text="Add Injury" />
+                        <CheckBox fx:id="activeInjuryAddInjuryCheckBox" layoutX="591.0" layoutY="15.0" mnemonicParsing="false" selected="true" styleClass="addInjury" text="Active Injury" />
+                        <ComboBox fx:id="addInjurySeasonComboBox" layoutX="559.0" layoutY="36.0" prefWidth="150.0" promptText="Season" />
+                        <ComboBox fx:id="addInjuryBodyPartComboBox" layoutX="64.0" layoutY="36.0" prefWidth="120.0" promptText="Body Part" />
+                        <ComboBox fx:id="addInjuryInjuryTypeComboBox" layoutX="208.0" layoutY="36.0" onMouseEntered="#injuryTypeAction" prefWidth="120.0" promptText="Injury Type" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
