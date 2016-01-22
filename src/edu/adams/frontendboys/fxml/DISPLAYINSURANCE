@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="displayInsuranceWindow" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainclient.InsuranceWindowController">
+   <children>
+      <AnchorPane layoutX="-4.0" layoutY="1.0" prefHeight="600.0" prefWidth="806.0">
+         <children>
+            <Label fx:id="insuranceInformationLabel" layoutX="348.0" layoutY="4.0" styleClass="displayInsurance" text="Insurance Information">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="ssnInsuranceInformationLabel" layoutX="520.0" layoutY="60.0" styleClass="displayInsurance" text="SSN" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="athleteNameInsuranceInformationLabel" layoutX="80.0" layoutY="60.0" styleClass="displayInsurance" text="Athlete Name" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="dobInsuranceInformationLabel" layoutX="240.0" layoutY="60.0" styleClass="displayInsurance" text="DOB" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="athleteCellInsuranceInformationLabel" layoutX="360.0" layoutY="60.0" styleClass="displayInsurance" text="Athlete Cell" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="genderInsuranceInformationLabel" layoutX="635.0" layoutY="60.0" styleClass="displayInsurance" text="Gender" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="sportsInsuranceInformationLabel" layoutX="80.0" layoutY="130.0" styleClass="displayInsurance" text="Sports" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="allergiesInsuranceInformationLabel" layoutX="240.0" layoutY="130.0" styleClass="displayInsurance" text="Allergies" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="medicationsInsuranceInformationLabel" layoutX="520.0" layoutY="130.0" styleClass="displayInsurance" text="Medications" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="policyHolderPhoneInsuranceInformationLabel" layoutX="520.0" layoutY="270.0" styleClass="displayInsurance" text="Insurance Phone" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ecInsuranceInformationLabel1" layoutX="80.0" layoutY="200.0" styleClass="displayInsurance" text="Emergency Contact One" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ecInsuranceInformationLabel2" layoutX="360.0" layoutY="200.0" styleClass="displayInsurance" text="Emergency Contact Two" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ecPhoneInsuranceInformationLabel1" layoutX="240.0" layoutY="200.0" styleClass="displayInsurance" text="Phone" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ecPhoneInsuranceInformationLabel2" layoutX="520.0" layoutY="198.0" styleClass="displayInsurance" text="Phone" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="policyHolderInsuranceInformationLabel" layoutX="80.0" layoutY="410.0" styleClass="displayInsurance" text="Policy Holder" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="policyHolderAddressInsuranceInformationLabel" layoutX="240.0" layoutY="270.0" styleClass="displayInsurance" text="Address" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="coverAthleteInjuryInsuranceInformationLabel" layoutX="360.0" layoutY="340.0" styleClass="displayInsurance" text="Cover Athlete Injury" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="precertificationPhoneInsuranceInformationLabel" layoutX="80.0" layoutY="542.0" styleClass="displayInsurance" text="Pre-certification Phone" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="insuranceNameInsuranceInformationLabel1" layoutX="80.0" layoutY="270.0" styleClass="displayInsurance" text="Insurance Name" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="insurancePhoneInsuranceInformationLabel" layoutX="240.0" layoutY="410.0" styleClass="displayInsurance" text="Phone" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="policyIdInsuranceInformationLabel" layoutX="635.0" layoutY="270.0" styleClass="displayInsurance" text="Policy ID" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="groupNumberInsuranceInformationLabel" layoutX="520.0" layoutY="340.0" styleClass="displayInsurance" text="Group Number" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="effectiveDateInsuranceInformationLabel" layoutX="80.0" layoutY="340.0" styleClass="displayInsurance" text="Effective Date" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="expirationDateInsuranceInformationLabel" layoutX="240.0" layoutY="340.0" styleClass="displayInsurance" text="Expiration Date" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="referralInsuranceInformationLabel" layoutX="635.0" layoutY="480.0" styleClass="displayInsurance" text="Referral" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="copayInsuranceInformationLabel" layoutX="635.0" layoutY="410.0" styleClass="displayInsurance" text="Co-Pay" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="limitInsuranceInformationLabel" layoutX="360.0" layoutY="410.0" styleClass="displayInsurance" text="Limit" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="deductibleInsuranceInformationLabel" layoutX="520.0" layoutY="410.0" styleClass="displayInsurance" text="Deductible " underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="primaryPhysicianInsuranceInformationLabel" layoutX="80.0" layoutY="480.0" styleClass="displayInsurance" text="Primary Physician" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="physicianPhoneInsuranceInformationLabel" layoutX="240.0" layoutY="480.0" styleClass="displayInsurance" text="Physician Phone" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="insuranceAddressInsuranceInformationLabel" layoutX="360.0" layoutY="480.0" styleClass="displayInsurance" text="Address" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="athleteNameInsuranceInformationLabel1" editable="false" layoutX="80.0" layoutY="85.0" styleClass="displayInsurance" />
+            <TextField fx:id="dobInsuranceInformationLabel1" editable="false" layoutX="240.0" layoutY="85.0" prefHeight="25.0" prefWidth="107.0" styleClass="displayInsurance" />
+            <TextField fx:id="athleteCellInsuranceInformationLabel1" editable="false" layoutX="360.0" layoutY="85.0" prefHeight="25.0" prefWidth="146.0" styleClass="displayInsurance" />
+            <TextField fx:id="ssnInsuranceInformationLabel1" editable="false" layoutX="520.0" layoutY="85.0" prefHeight="25.0" prefWidth="107.0" styleClass="displayInsurance" />
+            <TextField fx:id="genderInsuranceInformationLabel1" editable="false" layoutX="635.0" layoutY="85.0" prefHeight="25.0" prefWidth="41.0" styleClass="displayInsurance" />
+            <TextField fx:id="sportsInsuranceInformationLabel1" editable="false" layoutX="80.0" layoutY="155.0" prefHeight="25.0" prefWidth="149.0" styleClass="displayInsurance" />
+            <TextField fx:id="allergiesInsuranceInformationLabel1" editable="false" layoutX="240.0" layoutY="155.0" prefHeight="25.0" prefWidth="271.0" styleClass="displayInsurance" />
+            <TextField fx:id="medicationsInsuranceInformationLabel1" editable="false" layoutX="520.0" layoutY="156.0" prefHeight="25.0" prefWidth="271.0" styleClass="displayInsurance" />
+            <TextField fx:id="ecInsuranceInformationLabel11" editable="false" layoutX="80.0" layoutY="225.0" styleClass="displayInsurance" />
+            <TextField fx:id="ecPhoneInsuranceInformationLabel11" editable="false" layoutX="240.0" layoutY="225.0" prefHeight="25.0" prefWidth="114.0" styleClass="displayInsurance" />
+            <TextField fx:id="ecInsuranceInformationLabel21" editable="false" layoutX="360.0" layoutY="223.0" prefHeight="25.0" prefWidth="146.0" styleClass="displayInsurance" />
+            <TextField fx:id="ecPhoneInsuranceInformationLabel21" editable="false" layoutX="520.0" layoutY="223.0" prefHeight="25.0" prefWidth="94.0" styleClass="displayInsurance" />
+            <TextField fx:id="insuranceNameInsuranceInformationLabel11" editable="false" layoutX="80.0" layoutY="295.0" styleClass="displayInsurance" />
+            <TextField fx:id="policyHolderAddressInsuranceInformationLabel1" editable="false" layoutX="240.0" layoutY="295.0" prefHeight="25.0" prefWidth="271.0" styleClass="displayInsurance" />
+            <TextField fx:id="policyHolderPhoneInsuranceInformationLabel1" editable="false" layoutX="520.0" layoutY="295.0" prefHeight="25.0" prefWidth="101.0" styleClass="displayInsurance" />
+            <TextField fx:id="policyIdInsuranceInformationLabel1" editable="false" layoutX="635.0" layoutY="295.0" prefHeight="25.0" prefWidth="159.0" styleClass="displayInsurance" />
+            <TextField fx:id="effectiveDateInsuranceInformationLabel1" editable="false" layoutX="78.0" layoutY="365.0" prefHeight="25.0" prefWidth="88.0" styleClass="displayInsurance" />
+            <TextField fx:id="expirationDateInsuranceInformationLabel1" editable="false" layoutX="235.0" layoutY="365.0" prefHeight="25.0" prefWidth="88.0" styleClass="displayInsurance" />
+            <TextField fx:id="coverAthleteInjuryInsuranceInformationLabel1" editable="false" layoutX="362.0" layoutY="365.0" prefHeight="25.0" prefWidth="46.0" styleClass="displayInsurance" />
+            <TextField fx:id="groupNumberInsuranceInformationLabel1" editable="false" layoutX="520.0" layoutY="365.0" prefHeight="25.0" prefWidth="166.0" styleClass="displayInsurance" />
+            <TextField fx:id="policyHolderInsuranceInformationLabel1" editable="false" layoutX="80.0" layoutY="435.0" styleClass="displayInsurance" />
+            <TextField fx:id="insurancePhoneInsuranceInformationLabel1" editable="false" layoutX="237.0" layoutY="435.0" prefHeight="25.0" prefWidth="114.0" styleClass="displayInsurance" />
+            <TextField fx:id="limitInsuranceInformationLabel1" editable="false" layoutX="360.0" layoutY="435.0" prefHeight="25.0" prefWidth="79.0" styleClass="displayInsurance" />
+            <TextField fx:id="deductibleInsuranceInformationLabel1" editable="false" layoutX="520.0" layoutY="435.0" prefHeight="25.0" prefWidth="94.0" styleClass="displayInsurance" />
+            <TextField fx:id="copayInsuranceInformationLabel1" editable="false" layoutX="635.0" layoutY="435.0" prefHeight="25.0" prefWidth="65.0" styleClass="displayInsurance" />
+            <TextField fx:id="primaryPhysicianInsuranceInformationLabel1" editable="false" layoutX="80.0" layoutY="505.0" styleClass="displayInsurance" />
+            <TextField fx:id="physicianPhoneInsuranceInformationLabel1" editable="false" layoutX="240.0" layoutY="505.0" prefHeight="25.0" prefWidth="92.0" styleClass="displayInsurance" />
+            <TextField fx:id="insuranceAddressInsuranceInformationLabel1" editable="false" layoutX="360.0" layoutY="505.0" prefHeight="25.0" prefWidth="254.0" styleClass="displayInsurance" />
+            <TextField fx:id="referralInsuranceInformationLabel1" editable="false" layoutX="635.0" layoutY="505.0" prefHeight="25.0" prefWidth="46.0" styleClass="displayInsurance" />
+            <TextField fx:id="precertificationPhoneInsuranceInformationLabel1" editable="false" layoutX="80.0" layoutY="567.0" prefHeight="25.0" prefWidth="146.0" styleClass="displayInsurance" />
+            <Button fx:id="insuranceInformationEditButton" layoutX="712.0" layoutY="12.0" mnemonicParsing="false" onAction="#insuranceInformationEditButtonAction" prefHeight="25.0" prefWidth="76.0" text="Edit" />
+            <Button fx:id="insuranceInformationCancelButton" layoutX="712.0" layoutY="48.0" mnemonicParsing="false" onAction="#insuranceInformationCancelButtonAction" prefHeight="25.0" prefWidth="76.0" text="Cancel" visible="false" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
