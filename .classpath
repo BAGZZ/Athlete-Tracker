@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="edu/adams/frontendboys/" kind="src" path="src"/>
-	<classpathentry kind="src" path="src/edu/adams/frontendboys"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/ZBagby/Downloads/sqlite-jdbc-3.8.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/ZBagby/Downloads/tiwulfx.jar"/>
