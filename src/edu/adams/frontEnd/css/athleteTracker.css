@@ -1,0 +1,143 @@
+
+.root{
+	-fx-background-color: #003300;
+}
+
+.button{
+	-fx-text-fill: white;
+	-fx-background-color: #3c3c3c;
+}
+
+.button:hover{
+	-fx-background-color: #737373;
+}
+
+.searchFields{
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: #3c3c3c;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #e6e6e6;
+    -fx-border-color: white;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #eaeaea;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #003300;
+}
+
+.selectedAthlete.check-box{
+	-fx-text-fill: #FFFFFF;
+}
+
+.selectedAthlete.label{
+	-fx-text-fill: #FFFFFF;
+}
+
+.addAthlete{
+	-fx-text-fill: #000000;
+}
+
+.addAthlete.label{
+	-fx-text-fill: #FFFFFF;
+}
+
+.addAthlete.check-box{
+	-fx-text-fill: #FFFFFF;
+}
+
+.addAthlete.button{
+	-fx-text-fill: white;
+	-fx-background-color: #3c3c3c;
+}
+
+.addAthlete.button:hover{
+	-fx-background-color: #737373;
+}
+
+.myAnchorPanes{
+	-fx-background-color: #003300;
+}
+
+.selectedAthlete {
+	-fx-background-color: none;
+	-fx-text-fill: #FFFFFF;
+}
+
+.selectedAthlete.label{
+	-fx-font-weight: bold;
+}
+
+.selectedAthleteEdit{
+	-fx-text-fill: #faf427;
+}
+
+.insuranceInformation{
+	-fx-text-fill: #FFFFFF;
+}
+
+.insuranceInformationTitle{
+	-fx-text-fill: #FFFFFF;
+}
+
+.addInjury{
+	-fx-text-fill: #FFFFFF;
+}
+
+.addInjuryTitles{
+	-fx-font-size: 14px;
+	-fx-text-fill: #FFFFFF;
+}
+
+.editInjury{
+	-fx-font-size: 14px;
+	-fx-text-fill: #FFFFFF;
+}
+
+.displayInsurance{
+	-fx-background-color: none;
+	-fx-text-fill: #FFFFFF;
+}
+
+.displayInsurance.label{
+	-fx-text-fill: #FFFFFF;
+}
+
+.displayInsuranceEdit{
+	-fx-text-fill: #faf427;
+}
+
+.hbox{
+	-fx-border-color: #FFFFFF;
+}
+
+.errorMessage{
+	-fx-text-fill: #ff5559;
+}
+
+
+
+
+

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainclient.MainSceneController">
+  <tabs>
+    <Tab fx:id="searchTab" closable="false" styleClass="tabs" text="Search ">
+         <content>
+            <AnchorPane fx:id="searchAnchorPane" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="firstNameSearchText" layoutX="37.0" layoutY="20.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="155.0" promptText="First Name" styleClass="searchFields" />
+                  <TextField fx:id="middleInitialSearchText" layoutX="37.0" layoutY="55.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="37.0" promptText="M.I." styleClass="searchFields" />
+                  <TextField id="lastNameText" fx:id="lastNameSearchText" layoutX="37.0" layoutY="90.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="155.0" promptText="Last Name" styleClass="searchFields" />
+                  <DatePicker id="startDateDatePicker" fx:id="startDateDatePicker" layoutX="230.0" layoutY="20.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="155.0" promptText="Start Date" styleClass="searchFields" />
+                  <DatePicker id="endDateDatePicker" fx:id="endDateDatePicker" layoutX="230.0" layoutY="55.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="155.0" promptText="End Date" styleClass="searchFields" />
+                  <TextField fx:id="studentNumberSearchText" layoutX="230.0" layoutY="91.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="155.0" promptText="Student ID" styleClass="searchFields" />
+                  <ComboBox id="sportComboBox" fx:id="sportComboBox" layoutX="427.0" layoutY="20.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="165.0" promptText="Sport" styleClass="searchFields" />
+                  <ComboBox id="injuryTypeComboBox" fx:id="activeInjuryComboBox" layoutX="427.0" layoutY="56.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="165.0" promptText="Display Active Injuries" styleClass="searchFields" />
+                  <ComboBox fx:id="bodyPartComboBox" layoutX="427.0" layoutY="91.0" onKeyReleased="#handlerEnterPressed" prefHeight="25.0" prefWidth="166.0" promptText="Body Part" />
+                  <ComboBox id="seasonComboBox" fx:id="seasonComboBox" layoutX="618.0" layoutY="20.0" onKeyReleased="#handlerEnterPressed" prefWidth="150.0" promptText="Season" styleClass="searchFields" />
+                  <ComboBox id="seasonComboBox" fx:id="genderComboBox" layoutX="618.0" layoutY="55.0" onKeyReleased="#handlerEnterPressed" prefWidth="150.0" promptText="Gender" styleClass="searchFields" />
+                  <ComboBox id="injuryTypeComboBox" fx:id="injuryTypeComboBox" layoutX="616.0" layoutY="91.0" onKeyReleased="#handlerEnterPressed" onMouseEntered="#InjuryTypeComboBoxAction" prefHeight="25.0" prefWidth="155.0" promptText="Injury Type" styleClass="searchFields" />
+                  <Button fx:id="searchButton" layoutX="328.0" layoutY="125.0" mnemonicParsing="false" onAction="#searchButtonAction" prefHeight="25.0" prefWidth="150.0" text="Search" />
+                  <ScrollPane layoutX="40.0" layoutY="165.0" maxHeight="350.0" maxWidth="725.0" minHeight="350.0" minWidth="725.0" prefHeight="350.0" prefWidth="725.0">
+                     <content>
+                        <TableView fx:id="searchTableView" maxHeight="348.0" maxWidth="723.0" minHeight="348.0" minWidth="723.0" onMousePressed="#searchTableViewMousePressed" prefHeight="348.0" prefWidth="723.0" />
+                     </content>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ScrollPane>
+                  <Button fx:id="generateReportButton" layoutX="330.0" layoutY="522.0" mnemonicParsing="false" onAction="#generateReportButtonAction" prefHeight="38.0" prefWidth="144.0" text="Generate Report" />
+                  <ImageView fx:id="searchImageView" fitHeight="60.0" fitWidth="60.0" layoutX="729.0" layoutY="511.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="waitLabel" layoutX="496.0" layoutY="129.0" prefHeight="17.0" prefWidth="98.0" />
+                  <Label fx:id="generatedLabel" layoutX="510.0" layoutY="515.0" prefHeight="51.0" prefWidth="169.0" styleClass="errorMessage" />
+               </children>
+            </AnchorPane>
+         </content></Tab>
+    <Tab fx:id="selectedAthleteTab" closable="false" styleClass="tabs" text="Selected Athlete">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="194.0" prefWidth="810.0" styleClass="hbox">
+                     <children>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="220.0" prefWidth="365.0" styleClass="myAnchorPanes">
+                           <children>
+                              <Label fx:id="athleteInformationLabel" layoutX="118.0" layoutY="6.0" styleClass="selectedAthlete" text="Athlete Information">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="firstNameAthleteText" editable="false" layoutX="57.0" layoutY="28.0" prefHeight="25.0" prefWidth="97.0" promptText="First" styleClass="selectedAthlete" />
+                              <TextField fx:id="miAthleteText" editable="false" layoutX="158.0" layoutY="28.0" prefHeight="25.0" prefWidth="33.0" promptText="M.I." styleClass="selectedAthlete" />
+                              <TextField fx:id="lastNameAthleteText" editable="false" layoutX="193.0" layoutY="28.0" prefHeight="25.0" prefWidth="126.0" promptText="Last" styleClass="selectedAthlete" />
+                              <TextField fx:id="sportsAthleteText" editable="false" layoutX="121.0" layoutY="65.0" prefHeight="25.0" prefWidth="245.0" promptText="Sports" styleClass="selectedAthlete" />
+                              <CheckBox fx:id="activeCheckBox" disable="true" layoutX="245.0" layoutY="92.0" mnemonicParsing="false" selected="true" styleClass="selectedAthlete" text="Active" />
+                              <TextField fx:id="eligibilityAthleteText" editable="false" layoutX="121.0" layoutY="155.0" prefHeight="25.0" prefWidth="97.0" promptText="Eligibility" styleClass="selectedAthlete" />
+                              <TextField fx:id="idAthleteText" editable="false" layoutX="121.0" layoutY="110.0" prefHeight="25.0" prefWidth="97.0" promptText="ID" styleClass="selectedAthlete" />
+                              <TextField fx:id="yearAthleteText" editable="false" layoutX="268.0" layoutY="155.0" prefHeight="25.0" prefWidth="97.0" promptText="Year" styleClass="selectedAthlete" />
+                              <Label layoutX="74.0" layoutY="70.0" styleClass="selectedAthlete" text="Sports:" />
+                              <Label layoutX="50.0" layoutY="115.0" styleClass="selectedAthlete" text="Student ID:" />
+                              <Label layoutX="57.0" layoutY="159.0" styleClass="selectedAthlete" text="Eligibility:" />
+                              <Label layoutX="230.0" layoutY="160.0" styleClass="selectedAthlete" text="Year:" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="439.0" styleClass="myAnchorPanes">
+                           <children>
+                              <Label fx:id="contactInformationLabel" layoutX="154.0" layoutY="6.0" styleClass="selectedAthlete" text="Contact Information">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="editAthleteButton" layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#editAthleteButtonAction" prefHeight="25.0" prefWidth="95.0" text="Edit Athlete" />
+                              <Button fx:id="editAthleteCancelButton" layoutX="300.0" layoutY="49.0" mnemonicParsing="false" onAction="#editAthleteCancelButtonAction" prefHeight="25.0" prefWidth="95.0" text="Cancel" visible="false" />
+                              <TextField fx:id="phoneContactText" editable="false" layoutX="170.0" layoutY="53.0" prefHeight="25.0" prefWidth="95.0" promptText="555-555-5555" styleClass="selectedAthlete" />
+                              <TextField fx:id="ecContactText1" editable="false" layoutX="170.0" layoutY="93.0" prefHeight="25.0" prefWidth="150.0" promptText="Name" styleClass="selectedAthlete" />
+                              <TextField fx:id="ecPhoneContactText1" editable="false" layoutX="300.0" layoutY="93.0" prefHeight="25.0" prefWidth="95.0" promptText="555-555-5555" styleClass="selectedAthlete" />
+                              <TextField fx:id="ecContactText2" editable="false" layoutX="170.0" layoutY="133.0" prefHeight="25.0" prefWidth="150.0" promptText="Name" styleClass="selectedAthlete" />
+                              <TextField fx:id="ecPhoneContactText2" editable="false" layoutX="300.0" layoutY="133.0" prefHeight="25.0" prefWidth="95.0" promptText="555-555-5555" styleClass="selectedAthlete" />
+                              <Label fx:id="phoneNumberContactLabel" layoutX="29.0" layoutY="57.0" styleClass="selectedAthlete" text="Athlete Phone Number:" />
+                              <Label fx:id="ecContactLabel1" layoutX="24.0" layoutY="97.0" styleClass="selectedAthlete" text="Emergency Contact One:" />
+                              <Label fx:id="ecContactLabel2" layoutX="24.0" layoutY="137.0" styleClass="selectedAthlete" text="Emergency Contact Two:" />
+                              <Label fx:id="editAthleteError" layoutX="-34.0" layoutY="31.0" prefHeight="17.0" prefWidth="319.0" styleClass="errorMessage">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                <AnchorPane layoutX="-3.0" layoutY="195.0" minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="807.0" styleClass="myAnchorPanes">
+                     <children>
+                        <ScrollPane hmax="0.0" layoutX="24.0" layoutY="40.0" prefHeight="263.0" prefWidth="760.0" vmax="0.0">
+                           <content>
+                              <TableView fx:id="injuriesTableView" maxHeight="260.0" maxWidth="755.0" minHeight="260.0" minWidth="755.0" onMousePressed="#injuriesTableViewMousePressed" prefHeight="260.0" prefWidth="755.0" />
+                           </content>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ScrollPane>
+                        <Label fx:id="injuriesLabel" layoutX="380.0" layoutY="14.0" styleClass="selectedAthlete" text="Injuries" />
+                        <Button fx:id="displayInsuranceButton" alignment="CENTER" layoutX="233.0" layoutY="319.0" mnemonicParsing="false" onAction="#displayInsuranceButtonAction" prefHeight="50.0" prefWidth="115.0" text="Display Insurance" />
+                        <Button fx:id="addInjuryButton" layoutX="456.0" layoutY="320.0" mnemonicParsing="false" onAction="#addInjuryButtonAction" prefHeight="50.0" prefWidth="115.0" text="Add Injury" />
+                        <Label fx:id="displayInsuranceError" layoutX="24.0" layoutY="314.0" prefHeight="54.0" prefWidth="209.0" styleClass="errorMessage">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addInjuryError" layoutX="579.0" layoutY="316.0" prefHeight="49.0" prefWidth="207.0" styleClass="errorMessage">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </content></Tab>
+      <Tab fx:id="addAthleteTab" closable="false" styleClass="tabs" text="Add Athlete">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane layoutY="-1.0" prefHeight="580.0" prefWidth="800.0">
+                     <content>
+                        <AnchorPane maxHeight="820.0" maxWidth="800.0" minHeight="820.0" minWidth="800.0" prefHeight="820.0" prefWidth="800.0" styleClass="myAnchorPanes">
+                           <children>
+                              <Label fx:id="athleteInformationAddAthleteLabel" layoutX="340.0" layoutY="14.0" styleClass="addAthlete" text="Athlete Information">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="firstAddAthleteText" layoutX="120.0" layoutY="56.0" prefHeight="25.0" prefWidth="100.0" promptText="First" styleClass="addAthlete" />
+                              <TextField fx:id="miAddAthleteText" layoutX="260.0" layoutY="56.0" prefHeight="25.0" prefWidth="100.0" promptText="M.I." styleClass="addAthlete" />
+                              <TextField fx:id="lastAddAthleteText" layoutX="400.0" layoutY="56.0" prefHeight="25.0" prefWidth="100.0" promptText="Last" styleClass="addAthlete" />
+                              <TextField fx:id="cellAddAthleteText" layoutX="120.0" layoutY="105.0" prefHeight="25.0" prefWidth="100.0" promptText="Cell (555-555-5555)" styleClass="addAthlete" />
+                              <TextField fx:id="idAddAthleteText" layoutX="260.0" layoutY="105.0" prefHeight="25.0" prefWidth="100.0" promptText="ID" styleClass="addAthlete" />
+                              <DatePicker fx:id="dobAddAthletedatePicker" layoutX="402.0" layoutY="103.0" prefHeight="25.0" prefWidth="98.0" promptText="DOB" />
+                              <ComboBox fx:id="eligibilityAddAthleteComboBox" layoutX="120.0" layoutY="153.0" prefHeight="25.0" prefWidth="100.0" promptText="Eligibility" />
+                              <ComboBox fx:id="yearAddAthleteComboBox" layoutX="260.0" layoutY="154.0" prefHeight="25.0" prefWidth="100.0" promptText="Year" />
+                              <ComboBox fx:id="genderAddAthleteComboBox" layoutX="400.0" layoutY="155.0" prefHeight="25.0" prefWidth="100.0" promptText="Gender" />
+                              <TextField fx:id="allergiesAddAthleteText" layoutX="120.0" layoutY="202.0" prefHeight="25.0" prefWidth="175.0" promptText="Allergies" styleClass="addAthlete" />
+                              <TextField fx:id="medicationsAddAthletText" layoutX="325.0" layoutY="202.0" prefHeight="25.0" prefWidth="175.0" promptText="Medications" styleClass="addAthlete" />
+                              <TextField fx:id="athleteSSNAddAthleteText" layoutX="120.0" layoutY="246.0" prefHeight="25.0" prefWidth="100.0" promptText="Athlete SSN" styleClass="addAthlete" />
+                              <CheckBox fx:id="activeAddAthleteCheckBox" layoutX="304.0" layoutY="250.0" mnemonicParsing="false" selected="true" styleClass="addAthlete" text="Active?" />
+                              <Label fx:id="sportsAddAthleteLabel" layoutX="605.0" layoutY="48.0" styleClass="addAthlete" text="Sport/s" />
+                              <ListView fx:id="sportsAddAthleteListView" layoutX="524.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" styleClass="addAthlete" />
+                              <AnchorPane layoutX="20.0" layoutY="280.0" prefHeight="139.0" prefWidth="800.0">
+                                 <children>
+                                    <Label fx:id="emergencyContactInformationAddAthleteLabel" layoutX="293.0" layoutY="14.0" styleClass="addAthlete" text="Emergency Contact Information">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="ecNameAddAthleteText1" layoutX="100.0" layoutY="58.0" prefHeight="25.0" prefWidth="190.0" promptText="Emergency Contact One Name" styleClass="addAthlete" />
+                                    <TextField fx:id="ecPhoneAddAthleteText1" layoutX="320.0" layoutY="58.0" prefHeight="25.0" prefWidth="190.0" promptText="Emergency Contact One Phone" styleClass="addAthlete" />
+                                    <TextField fx:id="ecNameAddAthleteText2" layoutX="100.0" layoutY="100.0" prefHeight="25.0" prefWidth="190.0" promptText="Emergency Contact Two Name" styleClass="addAthlete" />
+                                    <TextField fx:id="ecPhoneAddAthleteText2" layoutX="320.0" layoutY="100.0" prefHeight="25.0" prefWidth="190.0" promptText="Emergency Contact Two Phone" styleClass="addAthlete" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutY="419.0" prefHeight="422.0" prefWidth="800.0">
+                                 <children>
+                                    <Label fx:id="insuranceInformationAddAthleteLabel" layoutX="343.0" layoutY="4.0" styleClass="addAthlete" text="Insurance Information">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="insuranceNameAddAthleteText" layoutX="120.0" layoutY="40.0" prefHeight="25.0" prefWidth="171.0" promptText="Name of Insurance Company" styleClass="addAthlete" />
+                                    <TextField fx:id="insurancePhoneAddAthleteText" layoutX="325.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" promptText="Insuance Phone" styleClass="addAthlete" />
+                                    <TextField fx:id="IDAddAthleteText" layoutX="455.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" promptText="Policy ID Number" styleClass="addAthlete" />
+                                    <TextField fx:id="groupNumberAddAthleteText" layoutX="585.0" layoutY="40.0" prefHeight="25.0" prefWidth="100.0" promptText="Group Number" styleClass="addAthlete" />
+                                    <TextField fx:id="companyAddressAddAthleteText" layoutX="120.0" layoutY="90.0" prefHeight="25.0" prefWidth="580.0" promptText="Company Address" styleClass="addAthlete" />
+                                    <DatePicker fx:id="effectiveDateDatePicker" layoutX="120.0" layoutY="140.0" prefHeight="25.0" prefWidth="120.0" promptText="Effective Date" styleClass="addAthlete" />
+                                    <DatePicker fx:id="expirationDateDatePicker" layoutX="257.0" layoutY="140.0" prefHeight="25.0" prefWidth="120.0" promptText="Expiration Date" styleClass="addAthlete" />
+                                    <ComboBox fx:id="coverAthleteInjuryAddAthleteComboBox" layoutX="396.0" layoutY="140.0" prefHeight="25.0" prefWidth="148.0" promptText="Cover Athlete Injury" styleClass="addAthlete" />
+                                    <TextField fx:id="preCertificationPhoneAddAthleteText" layoutX="563.0" layoutY="140.0" prefHeight="25.0" prefWidth="139.0" promptText="Pre-certifiction Phone" styleClass="addAthlete" />
+                                    <TextField fx:id="policyHolderAddAthleteText" layoutX="120.0" layoutY="190.0" prefHeight="25.0" prefWidth="130.0" promptText="Policy Holder" styleClass="addAthlete" />
+                                    <TextField fx:id="policyHolderPhoneAddAthleteText" layoutX="271.0" layoutY="190.0" prefHeight="25.0" prefWidth="130.0" promptText="Policy Holder Phone" styleClass="addAthlete" />
+                                    <TextField fx:id="primaryPhysicianAddAthleteText" layoutX="428.0" layoutY="190.0" prefHeight="25.0" prefWidth="108.0" promptText="Primary Physician" styleClass="addAthlete" />
+                                    <TextField fx:id="physicianPhoneAddAthleteText" layoutX="561.0" layoutY="190.0" prefHeight="25.0" prefWidth="100.0" promptText="Physician Phone" styleClass="addAthlete" />
+                                    <TextField fx:id="policyHolderAddressAddAthleteText" layoutX="120.0" layoutY="240.0" prefHeight="25.0" prefWidth="580.0" promptText="Policy Holder Address" styleClass="addAthlete" />
+                                    <TextField fx:id="coPayAddAthleteText" layoutX="120.0" layoutY="290.0" prefHeight="25.0" prefWidth="100.0" promptText="Co-Pay" styleClass="addAthlete" />
+                                    <TextField fx:id="limitAddAthleteText" layoutX="271.0" layoutY="290.0" prefHeight="25.0" prefWidth="100.0" promptText="Limit" styleClass="addAthlete" />
+                                    <TextField fx:id="deductableAddAthleteText" layoutX="411.0" layoutY="290.0" prefHeight="25.0" prefWidth="100.0" promptText="Deductable" styleClass="addAthlete" />
+                                    <ComboBox fx:id="referralAddAthleteComboBox" layoutX="551.0" layoutY="290.0" prefHeight="25.0" prefWidth="149.0" promptText="Require  a Referral?" styleClass="addAthlete" />
+                                    <Button fx:id="addAthleteButton" layoutX="361.0" layoutY="330.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#addAthleteButtonAction" prefHeight="50.0" prefWidth="100.0" styleClass="addAthlete" text="Add Athlete" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
