@@ -262,9 +262,11 @@ public class MainSceneController implements Initializable {
 		
 		sportsAddAthleteListView.getItems().setAll(sports);
 		sportsAddAthleteListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
 		
-		Image image = new Image("asuIcon.png");
-		searchImageView.setImage(image);
+		//needs change
+//		Image image = new Image("C:\\Users\\ZBagby\\Pictures\\asuIcon.png");
+//		searchImageView.setImage(image);
 	}
 	
 	public void editAthleteButtonAction(ActionEvent ae)

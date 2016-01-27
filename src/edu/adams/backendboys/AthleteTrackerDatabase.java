@@ -29,7 +29,7 @@ public class AthleteTrackerDatabase {
 		ArrayList<Athlete> athletes = new ArrayList<Athlete>();
 		//GET LIST OF ATHLETES FROM ATHLETES TABLE THAT MEET ABOVE REQUIREMENTS
 		ArrayList<Integer> studentIDs = parseAthleteInfoAndSearch(firstName, middleInitial, lastName, StudentID, gender);
-		
+			
 		//ATHLETE SPORTS TABLE
 		String sportID="";
 		if(sport.equalsIgnoreCase("") || sport.equalsIgnoreCase("Any Sport")){

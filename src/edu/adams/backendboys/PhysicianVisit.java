@@ -6,6 +6,7 @@ public class PhysicianVisit  implements Comparable<PhysicianVisit>{
 	Date date;
 	String note;
 	
+	@SuppressWarnings("unused")
 	private PhysicianVisit(){
 		
 	}

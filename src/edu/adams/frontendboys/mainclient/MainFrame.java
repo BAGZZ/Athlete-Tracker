@@ -19,7 +19,7 @@ public class MainFrame extends Application {
 		this.stage.setScene(scene);
 		this.stage.setTitle("Athlete Tracker");
 		this.stage.setResizable(false);
-		stage.getIcons().add(new Image("asuIcon.png"));
+		//stage.getIcons().add(new Image("asuIcon.png"));
 		
 		scene.getStylesheets().add("css/athleteTracker.css");
 		
