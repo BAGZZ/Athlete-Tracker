@@ -12,7 +12,7 @@ public class CreateAthleteDatabase {
 	    try {
 	      Class.forName("org.sqlite.JDBC");
 	      //this needs to be changed when not on my laptop
-	      c = DriverManager.getConnection("jdbc:sqlite:C:\\AthleteTracker\\ASUAthleteTracker.db");
+	      c = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\ZBagby\\Documents\\AthleteTrackerASUAthleteTracker.db");
 	      System.out.println("Opened database successfully");
 
 	      stmt = c.createStatement();
