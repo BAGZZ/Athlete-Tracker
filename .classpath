@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="edu/adams/frontendboys/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/edu/adams/frontendboys"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/ZBagby/Downloads/sqlite-jdbc-3.8.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ZBagby/Downloads/tiwulfx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ZBagby/Downloads/commons-beanutils-core-1.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ZBagby/Downloads/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
