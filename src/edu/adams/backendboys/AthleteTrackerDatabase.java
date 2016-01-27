@@ -86,10 +86,17 @@ public class AthleteTrackerDatabase {
 		sports.add("Any Sport");
 		String[] data = {"SPORTID IS NOT NULL"};
 		ArrayList<ArrayList<String>> temp = database.select("SPORTS", data);
-		for(ArrayList<String> pairs : temp){
-			sports.add(pairs.get(1));
+		if(temp == null){
+			ArrayList<String> empty= new ArrayList<String>();
+			empty.add("empty");
+			return empty;
 		}
+		else{
+			for(ArrayList<String> pairs : temp){
+				sports.add(pairs.get(1));
+			}
 		return sports;
+		}
 	}
 	
 	public int getSportID(String sport){
@@ -162,15 +169,19 @@ public class AthleteTrackerDatabase {
 		}
 		return output;
 	}
-	
+	//needs a change
 	public ArrayList<String> getAllBodyParts(){
 		ArrayList<String> bodyParts = new ArrayList<String>();
 		bodyParts.add("Any");
 		String[] data ={"BODYPARTID IS NOT NULL"};
-		for(ArrayList<String> parts: database.select("BODYPART", data)){
-			bodyParts.add(parts.get(1));
-		}
-		return new ArrayList<String>(bodyParts);
+		//empty
+			ArrayList<String> empty= new ArrayList<String>();
+			empty.add("empty");
+			return empty;
+//		for(ArrayList<String> parts: database.select("BODYPART", data)){
+//			bodyParts.add(parts.get(1));
+//		}
+//		return new ArrayList<String>(bodyParts);
 	}
 	
 	public Athlete getAthleteByID(Integer id){
